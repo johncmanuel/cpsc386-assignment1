@@ -11,6 +11,7 @@ public interface IGameState
 
 public enum GameStateType
 {
+    Null,
     InMainMenu,
     PreparingLevel,
     PlayingLevel,
@@ -26,7 +27,7 @@ public class GameManager : MonoBehaviour
     public GameStateType CurrentStateType { get; private set; }
     private IGameState _currentState;
     private int _currentSceneNum = 0;
-    private readonly int _totalNumberOfScenes = SceneManager.sceneCountInBuildSettings;
+    private int _totalNumberOfScenes;
 
     public event Action<GameStateType> OnGameStateChange;
 
@@ -39,6 +40,8 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
+
+        _totalNumberOfScenes = SceneManager.sceneCountInBuildSettings;
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
@@ -59,6 +62,19 @@ public class GameManager : MonoBehaviour
 
     public void UpdateGameState(GameStateType newState)
     {
+        if (newState == GameStateType.Null)
+        {
+            Debug.LogWarning("GameStateType {newState} is GameStateType.Null");
+            return;
+        }
+
+        if (!_gameStates.ContainsKey(newState))
+        {
+            Debug.LogError("GameStateType {newState} does not exist in _gameStates. Check InitializeGameStates() contains the required state mapping.");
+            return;
+        }
+
+        // Dont make change if one isnt necessary..
         if (CurrentStateType == newState) return;
 
         _currentState?.OnExit(this);
