@@ -3,14 +3,11 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Invulnerability))]
-[RequireComponent(typeof(Dash))]
-public class Player : MonoBehaviour, IMoveable, IDamageable
+public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private float health;
-    [SerializeField] private float moveSpeed = 5f;
     private Rigidbody2D rb;
 
-    private Dash dashComponent;
     private Invulnerability invulnerabilityComponent;
 
     public float Health
@@ -22,7 +19,6 @@ public class Player : MonoBehaviour, IMoveable, IDamageable
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        dashComponent = GetComponent<Dash>();
         invulnerabilityComponent = GetComponent<Invulnerability>();
     }
 
@@ -32,12 +28,6 @@ public class Player : MonoBehaviour, IMoveable, IDamageable
         {
             TakeDamage(10);
         }
-    }
-
-    public void Move(Vector2 direction)
-    {
-        Vector2 moveVelocity = direction.normalized * moveSpeed;
-        rb.velocity = moveVelocity;
     }
 
     public void TakeDamage(float amount)

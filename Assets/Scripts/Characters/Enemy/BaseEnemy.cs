@@ -1,11 +1,9 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public abstract class BaseEnemy : MonoBehaviour, IDamageable, IMoveable, ICombatant
+public abstract class BaseEnemy : MonoBehaviour, IDamageable, ICombatant
 {
     [SerializeField] private float health;
-    [SerializeField] private float moveSpeed = 3f;
-
     private Rigidbody2D rb;
 
     public float Health
@@ -20,12 +18,6 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable, IMoveable, ICombat
     }
 
     public abstract void Attack();
-
-    public virtual void Move(Vector2 direction)
-    {
-        Vector2 moveVelocity = direction.normalized * moveSpeed;
-        rb.velocity = moveVelocity;
-    }
 
     public virtual void TakeDamage(float amount)
     {
