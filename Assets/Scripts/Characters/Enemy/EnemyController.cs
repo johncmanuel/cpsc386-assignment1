@@ -1,5 +1,14 @@
 using UnityEngine;
 
+[System.Serializable]
+public struct Range
+{
+    public float min;
+    public float max;
+
+    public float RandomValue => Random.Range(min, max);
+}
+
 [RequireComponent(typeof(BaseEnemy))]
 [RequireComponent(typeof(BasicMovement))]
 public class EnemyController : MonoBehaviour
@@ -9,46 +18,72 @@ public class EnemyController : MonoBehaviour
 
     [SerializeField] private Transform target;
     [SerializeField] private float attackRange = 1f;
-    [SerializeField] private float detectionRange = 5f;
+    [SerializeField] private Range detectionRange = new Range { min = 3f, max = 4f };
+    [SerializeField] private Range reactionTime = new Range { min = 0.8f, max = 1.2f };
+    [SerializeField] private Range attackCooldown = new Range { min = 1.25f, max = 2.25f };
+    [SerializeField] private Range movementPauseAfterAttack = new Range { min = 0.15f, max = 0.35f };
+
+    private float lastAttackTime = -Mathf.Infinity;
+    private float lastMoveAfterAttackTime = -Mathf.Infinity;
+    private float currentReactionTime;
+    private float currentAttackCooldown;
+    private float currentDetectionRange;
+
     private void Awake()
     {
         enemy = GetComponent<BaseEnemy>();
         basicMovement = GetComponent<BasicMovement>();
+        if (target == null) target = GameObject.FindGameObjectWithTag("Player").transform;
 
-        if (enemy == null)
-            Debug.LogError("Could not find required enemy component");
+        // Initialize randomized values
+        ResetRandomTimes();
+    }
 
-        if (basicMovement == null)
-            Debug.LogError("Could not find required basicMovement component");
+    private void ResetRandomTimes()
+    {
+        currentReactionTime = reactionTime.RandomValue;
+        currentAttackCooldown = attackCooldown.RandomValue;
+        currentDetectionRange = detectionRange.RandomValue;
     }
 
     private void Update()
     {
-        if (target == null || basicMovement == null) return;
+        if (target == null) return;
 
-        float distanceToTarget = Vector2.Distance(transform.position, target.position);
+        float distance = Vector2.Distance(transform.position, target.position);
+        float timeSinceAttack = Time.time - lastAttackTime;
+        float timeToMove = Time.time - lastMoveAfterAttackTime;
 
-        if (distanceToTarget <= detectionRange)
+        if (distance <= currentDetectionRange)
         {
-            if (distanceToTarget > attackRange)
+            if (distance <= attackRange && timeSinceAttack >= currentAttackCooldown)
             {
-                // Move towards the player
-                Vector2 direction = (target.position - transform.position).normalized;
-                basicMovement.UpdateDirection(direction);
+                Attack();
+                lastMoveAfterAttackTime = Time.time + movementPauseAfterAttack.RandomValue;
+                // Reset random times for next cycle
+                ResetRandomTimes();
             }
-            else
+            else if (timeToMove >= currentReactionTime)
             {
-                // Stop moving before attacking?
-                basicMovement.UpdateDirection(Vector2.zero);
-
-                // Attack   
-                enemy.Attack();
+                MoveTowardsTarget();
             }
         }
         else
         {
-            // Idle
             basicMovement.UpdateDirection(Vector2.zero);
         }
+    }
+
+    private void Attack()
+    {
+        enemy.Attack();
+        lastAttackTime = Time.time;
+        basicMovement.UpdateDirection(Vector2.zero);
+    }
+
+    private void MoveTowardsTarget()
+    {
+        Vector2 direction = ((Vector2)target.position - (Vector2)transform.position).normalized;
+        basicMovement.UpdateDirection(direction);
     }
 }
