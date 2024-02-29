@@ -1446,8 +1446,8 @@ Transform:
   m_GameObject: {fileID: 1116306420}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.44, y: 1.018, z: 0}
-  m_LocalScale: {x: 0.13230404, y: 0.096458435, z: 1}
+  m_LocalPosition: {x: -0.438, y: 1.052, z: 0}
+  m_LocalScale: {x: 0.07490628, y: 0.089281924, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -1465,6 +1465,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 1923546507}
+  sceneName: Dungeon2
 --- !u!61 &1116306425
 BoxCollider2D:
   m_ObjectHideFlags: 0
