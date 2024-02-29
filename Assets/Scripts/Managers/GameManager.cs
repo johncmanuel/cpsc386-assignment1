@@ -87,20 +87,13 @@ public class GameManager : MonoBehaviour
 
     public void ReloadScene() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
-    public void SwitchToScene(string sceneName, bool updateCurrentSceneNum = true)
+    public void SwitchToScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
-        if (updateCurrentSceneNum) UpdateCurrentSceneNum(sceneName);
     }
 
-    public void SwitchToScene(int sceneNum, bool updateCurrentSceneNum = true)
+    public void SwitchToScene(int sceneNum)
     {
         SceneManager.LoadScene(sceneNum);
-        if (updateCurrentSceneNum) _currentSceneNum = sceneNum;
-    }
-
-    private void UpdateCurrentSceneNum(string sceneName)
-    {
-        _currentSceneNum = SceneManager.GetSceneByName(sceneName).buildIndex;
     }
 }
