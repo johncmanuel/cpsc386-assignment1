@@ -5,11 +5,11 @@ public class ProjectilePool : MonoBehaviour
 {
     [SerializeField]
     private GameObject projectilePrefab;
-    public ObjectPool<GameObject> pool { get; set; }
+    public ObjectPool<GameObject> pool { get; protected set; }
 
-    private void Awake()
+    private void OnEnable()
     {
-        pool = new ObjectPool<GameObject>(CreateProjectile, OnGetFromPool, OnReleaseToPool, OnDestroyPooledObject);
+        pool = new ObjectPool<GameObject>(CreateProjectile, OnGetFromPool, OnReleaseToPool, OnDestroyPooledProjectile);
     }
     private GameObject CreateProjectile()
     {
@@ -29,7 +29,7 @@ public class ProjectilePool : MonoBehaviour
         pooledProjectile.gameObject.SetActive(true);
     }
 
-    private void OnDestroyPooledObject(GameObject pooledProjectile)
+    private void OnDestroyPooledProjectile(GameObject pooledProjectile)
     {
         Destroy(pooledProjectile.gameObject);
     }

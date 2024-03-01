@@ -1,14 +1,15 @@
 using UnityEngine;
 
+[RequireComponent(typeof(ProjectilePool))]
 public class ProjectileManager : MonoBehaviour
 {
     [SerializeField]
     private GameObject projectilePrefab;
-    public ProjectilePool projectilePool { get; set; }
+    public ProjectilePool projectilePool { get; protected set; }
 
     [SerializeField]
-    private int maxProjectiles = 10;
-    // private int currentProjectiles = 0;
+    private int maxProjectiles = 100;
+    private int currentProjectiles = 0;
     // private int projectilesPerSecond = 1;
     public bool isUsingPool = false;
 
@@ -22,17 +23,13 @@ public class ProjectileManager : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        // if player triggers the gun, spawn a projectile here
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            SpawnProjectile();
-            Debug.Log("Spawned projectile");
-        }
+
     }
 
-    private GameObject SpawnProjectile()
+    public GameObject SpawnProjectile()
     {
         GameObject proj;
+
         if (isUsingPool)
         {
             proj = projectilePool.pool.Get();
@@ -41,9 +38,18 @@ public class ProjectileManager : MonoBehaviour
         {
             proj = Instantiate(projectilePrefab, transform);
         }
-        // Spawn projectile at player's position here.
-        // ...
-        proj.transform.position = new Vector3(0, 0, 0);
+
+        if (proj == null)
+        {
+            Debug.LogError("Projectile is null");
+        }
+
+        Debug.Log("Spawning projectile");
+
+        currentProjectiles++;
+
+        // Spawn projectile at an entity's position.
+        proj.transform.position = gameObject.transform.position;
         return proj;
     }
 }

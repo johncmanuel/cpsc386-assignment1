@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 537689569}
   m_Layer: 0
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1306,7 +1306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!61 &1040204374
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -3029,6 +3029,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.08, y: 0.08}
   m_EdgeRadius: 0
+--- !u!114 &1436916963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029742766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26b148c253be9a4483f1b1d48c91aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 537241463389354020, guid: 2718ced4d02c8b44eb98c3404068be5a, type: 3}
 --- !u!1001 &1606666611
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3090,6 +3103,39 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+--- !u!1 &1612872878 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+  m_PrefabInstance: {fileID: 6315309633420206674}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1612872886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612872878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8e96dbfac3f7143abfddceada32d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 537241463389354020, guid: 2718ced4d02c8b44eb98c3404068be5a, type: 3}
+  maxProjectiles: 100
+  isUsingPool: 0
+--- !u!114 &1612872887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612872878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26b148c253be9a4483f1b1d48c91aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 537241463389354020, guid: 2718ced4d02c8b44eb98c3404068be5a, type: 3}
 --- !u!1 &1923546505
 GameObject:
   m_ObjectHideFlags: 0
@@ -3251,10 +3297,18 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1436916936}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1247648531391715651, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+    - {fileID: -4818479744377154756, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1612872887}
+    - targetCorrespondingSourceObject: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1612872886}
   m_SourcePrefab: {fileID: 100100000, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
 --- !u!1001 &7057150481846460692
 PrefabInstance:
@@ -3268,6 +3322,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerRoot
       objectReference: {fileID: 0}
+    - target: {fileID: 4478597098331689459, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
+      propertyPath: projectilePrefab
+      value: 
+      objectReference: {fileID: 537241463389354020, guid: 2718ced4d02c8b44eb98c3404068be5a, type: 3}
     - target: {fileID: 4708081163485424247, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
       propertyPath: m_Constraints
       value: 4
@@ -3319,6 +3377,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 9178318429593657674, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1436916945}
+    - targetCorrespondingSourceObject: {fileID: 9178318429593657674, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1436916963}
   m_SourcePrefab: {fileID: 100100000, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

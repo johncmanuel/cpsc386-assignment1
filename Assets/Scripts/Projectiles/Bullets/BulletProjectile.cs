@@ -3,9 +3,14 @@ using UnityEngine;
 public class BulletProjectile : MonoBehaviour, IProjectile
 {
     [SerializeField]
-    float damageAmount = 10;
+    private float damageAmount = 10f;
     [SerializeField]
-    float speed = 2;
+    private float speed = 2f;
+    [SerializeField]
+    private float lifetime = 7f;
+
+    private Rigidbody2D rb;
+    private Vector3 mousePos;
 
     public void OnHitTarget(GameObject hitObject)
     {
@@ -14,25 +19,66 @@ public class BulletProjectile : MonoBehaviour, IProjectile
 
     public void DestroyProjectile()
     {
-        // Deactivate or destroy the bullet projectile
-        Debug.Log("Deactivated Bullet ");
+        gameObject.SetActive(false);
+    }
+
+    private void OnDestroy()
+    {
+        Debug.Log("Bullet destroyed");
     }
 
     public void DetectCollision(GameObject target)
     {
-        if (target.tag == "Player")
+        Debug.Log("Bullet collided with " + target.name);
+
+        if (target.CompareTag("Player"))
         {
-            // hit the player
-            // ...
-            // then destroy or deactivate the projectile
-            DestroyProjectile();
+            // deal damage to the player
+            target.GetComponent<Player>().TakeDamage(damageAmount);
+        }
+        else if (target.CompareTag("Enemy"))
+        {
+            // deal damage to the enemy
+            target.GetComponent<BaseEnemy>().TakeDamage(damageAmount);
+        }
+
+        DestroyProjectile();
+    }
+
+    // Start is called before the first frame update
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+
+        var parentObj = transform.parent.gameObject;
+
+        // Shoot the bullet projectile in the direction of the player's cursor
+        if (parentObj.CompareTag("Player"))
+        {
+            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mouseDir = mousePos - transform.position;
+            rb.velocity = new Vector2(mouseDir.x, mouseDir.y).normalized * speed;
+        }
+        // Shoot the bullet projectile in the player's direction
+        else if (parentObj.CompareTag("Enemy"))
+        {
+
+            Transform target = GameObject.FindGameObjectWithTag("Player").transform;
+            Vector2 direction = target.position - transform.position;
+            rb.velocity = new Vector2(direction.x, direction.y).normalized * speed;
         }
     }
 
     private void Update()
     {
-        // move the bullet projectile in weapon's direction until collision is detected
-        transform.Translate(new Vector3(speed * Time.deltaTime, 0f, 0f));
-        Debug.Log("BulletProjectile moving...");
+        // if (lifetime <= 0)
+        // {
+        //     Debug.Log("Bullet lifetime reached 0. Destroying bullet.");
+        //     DestroyProjectile();
+        // }
+        // else
+        // {
+        //     lifetime -= Time.deltaTime;
+        // }
     }
 }

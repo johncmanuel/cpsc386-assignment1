@@ -158,6 +158,8 @@ GameObject:
   - component: {fileID: 2049110082855848480}
   - component: {fileID: 2906751285678907143}
   - component: {fileID: 3096120375880578087}
+  - component: {fileID: 4478597098331689459}
+  - component: {fileID: 5134523259401255032}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -339,3 +341,31 @@ MonoBehaviour:
   dashStrength: 1.25
   invulnerabilityComponent: {fileID: 9046297589807096531}
   movementManager: {fileID: 2049110082855848480}
+--- !u!114 &4478597098331689459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178318429593657674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8e96dbfac3f7143abfddceada32d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 537241463389354020, guid: 2718ced4d02c8b44eb98c3404068be5a, type: 3}
+  maxProjectiles: 100
+  isUsingPool: 0
+--- !u!114 &5134523259401255032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9178318429593657674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26b148c253be9a4483f1b1d48c91aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 537241463389354020, guid: 2718ced4d02c8b44eb98c3404068be5a, type: 3}
