@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class BulletProjectile : MonoBehaviour, IProjectile
@@ -7,19 +8,71 @@ public class BulletProjectile : MonoBehaviour, IProjectile
     [SerializeField]
     private float speed = 2f;
     [SerializeField]
-    private float lifetime = 7f;
-
+    private float lifetime = 4f;
     private Rigidbody2D rb;
-    private Vector3 mousePos;
+    private GameObject parentObj;
+    private ProjectileManager projectileManager;
+
+    // Start is called before the first frame update
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        parentObj = transform.parent.gameObject;
+        projectileManager = GetComponentInParent<ProjectileManager>();
+
+        // Destroy the bullet projectile after a certain amount of time
+        StartCoroutine(DestroyAfterTime(lifetime));
+
+        // Shoot the bullet projectile in the direction of the player's cursor
+        if (parentObj.CompareTag("Player"))
+        {
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 mouseDir = mousePos - transform.position;
+            rb.velocity = new Vector2(mouseDir.x, mouseDir.y).normalized * speed;
+        }
+        // Shoot the bullet projectile in the player's direction
+        else if (parentObj.CompareTag("Enemy"))
+        {
+            Transform target = GameObject.FindGameObjectWithTag("Player").transform;
+            Vector2 direction = target.position - transform.position;
+            rb.velocity = new Vector2(direction.x, direction.y).normalized * speed;
+        }
+    }
+
+    private void Update()
+    {
+
+    }
+
+    IEnumerator DestroyAfterTime(float time)
+    {
+        yield return new WaitForSeconds(time);
+        DestroyProjectile();
+    }
 
     public void OnHitTarget(GameObject hitObject)
     {
         Debug.Log("Bullet hit " + hitObject.name);
+
+        if (hitObject.CompareTag("Player"))
+        {
+            // deal damage to the player if the bullet was shot by an enemy
+            if (parentObj.CompareTag("Enemy"))
+                hitObject.GetComponent<Player>().TakeDamage(damageAmount);
+        }
+        else if (hitObject.CompareTag("Enemy"))
+        {
+            // deal damage to the enemy if the bullet was shot by the player
+            if (parentObj.CompareTag("Player"))
+                hitObject.GetComponent<BaseEnemy>().TakeDamage(damageAmount);
+        }
+
+        DestroyProjectile();
     }
 
     public void DestroyProjectile()
     {
-        gameObject.SetActive(false);
+        projectileManager.DeleteProjectile(gameObject);
     }
 
     private void OnDestroy()
@@ -29,56 +82,8 @@ public class BulletProjectile : MonoBehaviour, IProjectile
 
     public void DetectCollision(GameObject target)
     {
-        Debug.Log("Bullet collided with " + target.name);
-
-        if (target.CompareTag("Player"))
-        {
-            // deal damage to the player
-            target.GetComponent<Player>().TakeDamage(damageAmount);
-        }
-        else if (target.CompareTag("Enemy"))
-        {
-            // deal damage to the enemy
-            target.GetComponent<BaseEnemy>().TakeDamage(damageAmount);
-        }
-
-        DestroyProjectile();
-    }
-
-    // Start is called before the first frame update
-    private void Start()
-    {
-        rb = GetComponent<Rigidbody2D>();
-
-        var parentObj = transform.parent.gameObject;
-
-        // Shoot the bullet projectile in the direction of the player's cursor
-        if (parentObj.CompareTag("Player"))
-        {
-            mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 mouseDir = mousePos - transform.position;
-            rb.velocity = new Vector2(mouseDir.x, mouseDir.y).normalized * speed;
-        }
-        // Shoot the bullet projectile in the player's direction
-        else if (parentObj.CompareTag("Enemy"))
-        {
-
-            Transform target = GameObject.FindGameObjectWithTag("Player").transform;
-            Vector2 direction = target.position - transform.position;
-            rb.velocity = new Vector2(direction.x, direction.y).normalized * speed;
-        }
-    }
-
-    private void Update()
-    {
-        // if (lifetime <= 0)
-        // {
-        //     Debug.Log("Bullet lifetime reached 0. Destroying bullet.");
-        //     DestroyProjectile();
-        // }
-        // else
-        // {
-        //     lifetime -= Time.deltaTime;
-        // }
+        // OnHitTarget(target);
+        // DestroyProjectile();
+        throw new System.NotImplementedException();
     }
 }

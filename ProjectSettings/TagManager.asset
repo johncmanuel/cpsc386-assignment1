@@ -7,8 +7,8 @@ TagManager:
   - Projectile
   - Enemy
   - TriggerNextScene
-  - Wall
   - Obstacle
+  - Weapon
   layers:
   - Default
   - TransparentFX

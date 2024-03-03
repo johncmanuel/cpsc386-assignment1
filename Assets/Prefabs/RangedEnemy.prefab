@@ -211,4 +211,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 537241463389354020, guid: 2718ced4d02c8b44eb98c3404068be5a, type: 3}
   maxProjectiles: 100
-  isUsingPool: 0
+  isUsingPool: 1

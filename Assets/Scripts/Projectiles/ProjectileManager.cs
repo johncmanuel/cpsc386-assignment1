@@ -44,12 +44,45 @@ public class ProjectileManager : MonoBehaviour
             Debug.LogError("Projectile is null");
         }
 
-        Debug.Log("Spawning projectile");
+        // Debug.Log("Spawning projectile");
 
         currentProjectiles++;
 
-        // Spawn projectile at an entity's position.
-        proj.transform.position = gameObject.transform.position;
+        if (gameObject.CompareTag("Player"))
+        {
+            // Spawn projectile at player weapon's position
+            GameObject childObj = gameObject.transform.Find("RotationPoint/Weapon").gameObject;
+            proj.transform.position = childObj.transform.position;
+        }
+        else
+        {
+            // Spawn projectile at parent object's position
+            proj.transform.position = gameObject.transform.position;
+        }
+
+
         return proj;
+    }
+
+    public void DeleteProjectile(GameObject proj)
+    {
+        if (proj == null)
+        {
+            Debug.LogError("Projectile is null");
+            return;
+        }
+
+        if (isUsingPool)
+        {
+            projectilePool.pool.Release(proj);
+        }
+        else
+        {
+            Destroy(proj);
+        }
+
+        Debug.Log("Deleting projectile: " + proj.name);
+
+        currentProjectiles--;
     }
 }

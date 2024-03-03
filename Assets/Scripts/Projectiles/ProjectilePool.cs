@@ -5,11 +5,13 @@ public class ProjectilePool : MonoBehaviour
 {
     [SerializeField]
     private GameObject projectilePrefab;
+    [SerializeField]
+    private int maxProjectiles = 100;
     public ObjectPool<GameObject> pool { get; protected set; }
 
     private void OnEnable()
     {
-        pool = new ObjectPool<GameObject>(CreateProjectile, OnGetFromPool, OnReleaseToPool, OnDestroyPooledProjectile);
+        pool = new ObjectPool<GameObject>(CreateProjectile, OnGetFromPool, OnReleaseToPool, OnDestroyPooledProjectile, maxSize: maxProjectiles);
     }
     private GameObject CreateProjectile()
     {
