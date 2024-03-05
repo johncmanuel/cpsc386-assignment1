@@ -1,7 +1,6 @@
-
 using UnityEngine;
 
-public interface IWeapon
+public interface IWeapon : IInteractable
 {
     void Attack();
 }

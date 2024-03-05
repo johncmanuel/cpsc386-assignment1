@@ -13,6 +13,9 @@ public class BulletProjectile : MonoBehaviour, IProjectile
     private GameObject parentObj;
     private ProjectileManager projectileManager;
 
+    private string projectileType = "BulletProjectile";
+    public string Type => projectileType;
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -24,24 +27,19 @@ public class BulletProjectile : MonoBehaviour, IProjectile
         StartCoroutine(DestroyAfterTime(lifetime));
 
         // Shoot the bullet projectile in the direction of the player's cursor
-        if (parentObj.CompareTag("Player"))
+        if (parentObj.CompareTag(Tags.Player))
         {
             Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             Vector3 mouseDir = mousePos - transform.position;
             rb.velocity = new Vector2(mouseDir.x, mouseDir.y).normalized * speed;
         }
         // Shoot the bullet projectile in the player's direction
-        else if (parentObj.CompareTag("Enemy"))
+        else if (parentObj.CompareTag(Tags.Enemy))
         {
-            Transform target = GameObject.FindGameObjectWithTag("Player").transform;
+            Transform target = GameObject.FindGameObjectWithTag(Tags.Player).transform;
             Vector2 direction = target.position - transform.position;
             rb.velocity = new Vector2(direction.x, direction.y).normalized * speed;
         }
-    }
-
-    private void Update()
-    {
-
     }
 
     IEnumerator DestroyAfterTime(float time)
@@ -53,20 +51,7 @@ public class BulletProjectile : MonoBehaviour, IProjectile
     public void OnHitTarget(GameObject hitObject)
     {
         Debug.Log("Bullet hit " + hitObject.name);
-
-        if (hitObject.CompareTag("Player"))
-        {
-            // deal damage to the player if the bullet was shot by an enemy
-            if (parentObj.CompareTag("Enemy"))
-                hitObject.GetComponent<Player>().TakeDamage(damageAmount);
-        }
-        else if (hitObject.CompareTag("Enemy"))
-        {
-            // deal damage to the enemy if the bullet was shot by the player
-            if (parentObj.CompareTag("Player"))
-                hitObject.GetComponent<BaseEnemy>().TakeDamage(damageAmount);
-        }
-
+        hitObject.GetComponent<IDamageable>().TakeDamage(damageAmount);
         DestroyProjectile();
     }
 
@@ -78,12 +63,5 @@ public class BulletProjectile : MonoBehaviour, IProjectile
     private void OnDestroy()
     {
         Debug.Log("Bullet destroyed");
-    }
-
-    public void DetectCollision(GameObject target)
-    {
-        // OnHitTarget(target);
-        // DestroyProjectile();
-        throw new System.NotImplementedException();
     }
 }

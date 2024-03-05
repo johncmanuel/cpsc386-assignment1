@@ -4023,6 +4023,68 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &1281569663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1281569666}
+  - component: {fileID: 1281569665}
+  - component: {fileID: 1281569664}
+  m_Layer: 0
+  m_Name: ProjectileManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1281569664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281569663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d8e96dbfac3f7143abfddceada32d43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 537241463389354020, guid: 2718ced4d02c8b44eb98c3404068be5a, type: 3}
+  maxProjectiles: 100
+  isUsingPool: 1
+--- !u!114 &1281569665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281569663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a26b148c253be9a4483f1b1d48c91aa8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 537241463389354020, guid: 2718ced4d02c8b44eb98c3404068be5a, type: 3}
+  maxProjectiles: 100
+--- !u!4 &1281569666
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281569663}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.060634, y: -0.16387343, z: 1.2370996}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1436916936 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3277108586042388907, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
@@ -4364,7 +4426,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8610165308077010122, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -4385,3 +4448,4 @@ SceneRoots:
   - {fileID: 1026099616}
   - {fileID: 7057150481846460692}
   - {fileID: 6315309633420206674}
+  - {fileID: 1281569666}

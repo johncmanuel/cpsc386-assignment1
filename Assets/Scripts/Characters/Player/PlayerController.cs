@@ -1,36 +1,34 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(ProjectileManager))]
 [RequireComponent(typeof(Player))]
 [RequireComponent(typeof(BasicMovement))]
 [RequireComponent(typeof(DashMovement))]
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private float interactionRadius = 1f;
+
     private Player player;
     private Vector2 movementInput;
     private BasicMovement basicMovement;
     private DashMovement dashMovement;
-    private ProjectileManager projectileManager;
 
-    private void Awake()
+    private void Start()
     {
         player = GetComponent<Player>();
         basicMovement = GetComponent<BasicMovement>();
         dashMovement = GetComponent<DashMovement>();
-        projectileManager = GetComponent<ProjectileManager>();
 
+        ValidateComponents();
+    }
+
+    private void ValidateComponents()
+    {
         if (player == null)
-            Debug.LogError("Couldnt find required player component");
-
+            Debug.LogError("Couldn't find required Player component");
         if (basicMovement == null)
             Debug.LogError("Couldn't find required BasicMovement component");
-
-        if (basicMovement == null)
+        if (dashMovement == null)
             Debug.LogError("Couldn't find required DashMovement component");
-
-        if (projectileManager == null)
-            Debug.LogError("Couldn't find required ProjectileManager component");
     }
 
     private void Update()
@@ -49,7 +47,11 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.Mouse0))
         {
-            projectileManager.SpawnProjectile();
+            player.Attack();
+        }
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            player.InteractWithNearestInteractable();
         }
     }
 }

@@ -7,18 +7,20 @@ public class RotateWeapon : MonoBehaviour
     // Source utilized:
     // https://www.youtube.com/watch?v=-bkmPm_Besk
 
-    private Camera camera;
+    private Camera mainCamera;
     private Vector3 mousePos;
-    // Start is called before the first frame update
+
     void Start()
     {
-        camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        mainCamera = GameObject.FindGameObjectWithTag(Tags.MainCamera).GetComponent<Camera>();
+
+        if (mainCamera == null)
+            Debug.LogError("Couldn't find required Camera component");
     }
 
-    // Update is called once per frame
     void Update()
     {
-        mousePos = camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, camera.transform.position.z));
+        mousePos = mainCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, mainCamera.transform.position.z));
         Vector3 rotation = mousePos - transform.position;
         float angle = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);

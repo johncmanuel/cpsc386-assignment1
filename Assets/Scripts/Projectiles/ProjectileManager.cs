@@ -1,66 +1,39 @@
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 [RequireComponent(typeof(ProjectilePool))]
 public class ProjectileManager : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject projectilePrefab;
-    public ProjectilePool projectilePool { get; protected set; }
+    public static ProjectileManager Instance { get; private set; }
 
-    [SerializeField]
-    private int maxProjectiles = 100;
-    private int currentProjectiles = 0;
-    // private int projectilesPerSecond = 1;
-    public bool isUsingPool = false;
+    private ProjectilePool projectilePool;
 
-    // Start is called before the first frame update
-    private void Start()
+    private void Awake()
     {
-        // Initialize the pool
-        projectilePool = GetComponent<ProjectilePool>();
-    }
-
-    // Update is called once per frame
-    private void Update()
-    {
-
-    }
-
-    public GameObject SpawnProjectile()
-    {
-        GameObject proj;
-
-        if (isUsingPool)
+        if (Instance != null && Instance != this)
         {
-            proj = projectilePool.pool.Get();
+            Destroy(gameObject);
         }
         else
         {
-            proj = Instantiate(projectilePrefab, transform);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
+        projectilePool = GetComponent<ProjectilePool>();
+        if (projectilePool == null)
+            Debug.LogError("Could not find required component ProjectilePool");
+    }
+
+    public GameObject SpawnProjectile(string type)
+    {
+        var proj = projectilePool.GetPooledProjectile(type);
         if (proj == null)
         {
-            Debug.LogError("Projectile is null");
+            Debug.LogError("Failed to spawn projectile.");
+            return null;
         }
-
-        // Debug.Log("Spawning projectile");
-
-        currentProjectiles++;
-
-        if (gameObject.CompareTag("Player"))
-        {
-            // Spawn projectile at player weapon's position
-            GameObject childObj = gameObject.transform.Find("RotationPoint/Weapon").gameObject;
-            proj.transform.position = childObj.transform.position;
-        }
-        else
-        {
-            // Spawn projectile at parent object's position
-            proj.transform.position = gameObject.transform.position;
-        }
-
-
         return proj;
     }
 
@@ -68,21 +41,10 @@ public class ProjectileManager : MonoBehaviour
     {
         if (proj == null)
         {
-            Debug.LogError("Projectile is null");
+            Debug.LogError("Projectile is null.");
             return;
         }
 
-        if (isUsingPool)
-        {
-            projectilePool.pool.Release(proj);
-        }
-        else
-        {
-            Destroy(proj);
-        }
-
-        Debug.Log("Deleting projectile: " + proj.name);
-
-        currentProjectiles--;
+        projectilePool.ReleaseProjectile(proj);
     }
 }

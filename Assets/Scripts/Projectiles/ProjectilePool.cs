@@ -1,39 +1,68 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using System.Collections.Generic;
 
 public class ProjectilePool : MonoBehaviour
 {
     [SerializeField]
-    private GameObject projectilePrefab;
-    [SerializeField]
-    private int maxProjectiles = 100;
-    public ObjectPool<GameObject> pool { get; protected set; }
+    private List<GameObject> projectilePrefabs = new List<GameObject>();
 
-    private void OnEnable()
+    private Dictionary<string, ObjectPool<GameObject>> pools = new Dictionary<string, ObjectPool<GameObject>>();
+
+    private void Start()
     {
-        pool = new ObjectPool<GameObject>(CreateProjectile, OnGetFromPool, OnReleaseToPool, OnDestroyPooledProjectile, maxSize: maxProjectiles);
-    }
-    private GameObject CreateProjectile()
-    {
-        GameObject proj = Instantiate(projectilePrefab);
-        proj.SetActive(false);
-        proj.transform.SetParent(transform);
-        return proj;
+        InitializePools();
     }
 
-    private void OnReleaseToPool(GameObject pooledProjectile)
+    private void InitializePools()
     {
-        pooledProjectile.gameObject.SetActive(false);
+        foreach (var prefab in projectilePrefabs)
+        {
+            IProjectile projectileScript = prefab.GetComponent<IProjectile>();
+            if (projectileScript == null)
+            {
+                Debug.LogWarning($"Prefab {prefab.name} does not have an IProjectile component. Check ProjectilePool in inspector.");
+                continue;
+            }
+
+            string type = projectileScript.Type;
+            var pool = new ObjectPool<GameObject>(
+                createFunc: () => {
+                    var instance = Instantiate(prefab);
+                    instance.name = prefab.name;
+                    return instance;
+                },
+                actionOnGet: (obj) => obj.SetActive(true),
+                actionOnRelease: (obj) => obj.SetActive(false),
+                actionOnDestroy: (obj) => Destroy(obj),
+                collectionCheck: false,
+                defaultCapacity: 10,
+                maxSize: 100);
+            pools[type] = pool;
+        }
     }
 
-    private void OnGetFromPool(GameObject pooledProjectile)
+    public GameObject GetPooledProjectile(string type)
     {
-        pooledProjectile.gameObject.SetActive(true);
+        if (pools.TryGetValue(type, out var pool))
+        {
+            return pool.Get();
+        }
+
+        Debug.LogError($"No pool found for projectile type: {type}");
+        return null;
     }
 
-    private void OnDestroyPooledProjectile(GameObject pooledProjectile)
+    public void ReleaseProjectile(GameObject projectile)
     {
-        Destroy(pooledProjectile.gameObject);
+        IProjectile projectileComponent = projectile.GetComponent<IProjectile>();
+        if (projectileComponent != null && pools.TryGetValue(projectileComponent.Type, out var pool))
+        {
+            pool.Release(projectile);
+        }
+        else
+        {
+            Debug.LogError($"Attempted to release unmanaged projectile or projectile without IProjectile component: {projectile.name}");
+        }
     }
-
 }

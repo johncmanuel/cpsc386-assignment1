@@ -2,7 +2,7 @@ using UnityEngine;
 
 public interface IProjectile
 {
-    void DetectCollision(GameObject target);
+    string Type { get; }
     void OnHitTarget(GameObject hitObject);
     void DestroyProjectile();
 }

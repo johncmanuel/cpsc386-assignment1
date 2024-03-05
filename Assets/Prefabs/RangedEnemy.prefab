@@ -15,8 +15,6 @@ GameObject:
   - component: {fileID: 5921581042325520319}
   - component: {fileID: 2478100405079336098}
   - component: {fileID: 7306862116060965237}
-  - component: {fileID: -4818479744377154756}
-  - component: {fileID: 1247648531391715651}
   m_Layer: 0
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -130,7 +128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a8ed0f22d01c14e92dd193a5b90b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
+  health: 100
 --- !u!114 &5921581042325520319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,31 +182,3 @@ MonoBehaviour:
   currentDirection: {x: 0, y: 0}
   speed: 0.3
   movementManager: {fileID: 2478100405079336098}
---- !u!114 &-4818479744377154756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890048543646763349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a26b148c253be9a4483f1b1d48c91aa8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 537241463389354020, guid: 2718ced4d02c8b44eb98c3404068be5a, type: 3}
---- !u!114 &1247648531391715651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 890048543646763349}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d8e96dbfac3f7143abfddceada32d43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 537241463389354020, guid: 2718ced4d02c8b44eb98c3404068be5a, type: 3}
-  maxProjectiles: 100
-  isUsingPool: 1
