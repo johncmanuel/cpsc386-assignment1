@@ -1,4 +1,7 @@
+using UnityEngine;
+
 public interface IInteractable
 {
-    void InteractWith();
+    bool CanInteract(GameObject objectInteractingWithMe);
+    void InteractWith(GameObject objectInteractingWithMe);
 }

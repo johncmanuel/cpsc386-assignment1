@@ -7,11 +7,17 @@ public abstract class BaseActiveItem : MonoBehaviour, IItem, IInteractable
     public void UseItem()
     {
         OnUse();
+
         // handle item consumption or cooldown?
     }
 
-    public void InteractWith()
+    public void InteractWith(GameObject objectInteractingWithMe)
     {
         UseItem();
+    }
+
+    public bool CanInteract(GameObject objectInteractingWithMe)
+    {
+        return true;
     }
 }

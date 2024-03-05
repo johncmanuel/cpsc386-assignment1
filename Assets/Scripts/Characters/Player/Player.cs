@@ -10,7 +10,6 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private float interactionRadius = 1f;
 
     private Rigidbody2D rb;
-    private ProjectileManager projectileManager;
     private Invulnerability invulnerability;
     private WeaponManager weaponManager;
 
@@ -25,7 +24,6 @@ public class Player : MonoBehaviour, IDamageable
     {
         rb = GetComponent<Rigidbody2D>();
         invulnerability = GetComponent<Invulnerability>();
-        projectileManager = ProjectileManager.Instance;
         weaponManager = GetComponent<WeaponManager>();
 
         if (rb == null)
@@ -33,9 +31,6 @@ public class Player : MonoBehaviour, IDamageable
 
         if (invulnerability == null)
             Debug.LogError("Couldn't find required Invulnerability component");
-
-        if (projectileManager == null)
-            Debug.LogError("Couldn't find required ProjectileManager component");
 
         if (weaponManager == null)
             Debug.LogError("Couldn't find required weaponManager component");
@@ -58,15 +53,9 @@ public class Player : MonoBehaviour, IDamageable
         GameManager.Instance.UpdateGameState(GameStateType.PlayerDied);
     }
 
-    public void EquipWeapon(IWeapon weapon)
-    {
-        weaponManager.EquipWeapon(weapon);
-    }
-
     public void Attack()
     {
         weaponManager.AttackWithCurrentWeapon();
-        projectileManager.SpawnProjectile("Bullet");
     }
 
     public void InteractWithNearestInteractable()
@@ -92,7 +81,7 @@ public class Player : MonoBehaviour, IDamageable
 
         if (nearestInteractable != null)
         {
-            nearestInteractable.InteractWith();
+            nearestInteractable.InteractWith(this.gameObject);
         }
     }
 
