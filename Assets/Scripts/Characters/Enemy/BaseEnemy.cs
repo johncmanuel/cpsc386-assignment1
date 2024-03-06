@@ -6,9 +6,9 @@ using UnityEngine;
 public abstract class BaseEnemy : MonoBehaviour, IDamageable, ICombatant
 {
     [SerializeField] private float health;
-    private IWeapon weaponToEquip;
 
-    private WeaponManager weaponManager;
+    protected IWeapon weaponToEquip;
+    protected WeaponManager weaponManager;
 
     public float Health
     {

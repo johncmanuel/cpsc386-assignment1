@@ -6,6 +6,8 @@ public abstract class BaseGun : MonoBehaviour, IWeapon
     private string projectileType = "Bullet";
     public bool CanBeEquipped { get; set; } = true;
 
+    [SerializeField] private float bulletSpeed = 1f;
+
     [SerializeField] private Transform bulletSpawn;
 
     private void Start()
@@ -16,7 +18,8 @@ public abstract class BaseGun : MonoBehaviour, IWeapon
 
     public void Attack()
     {
-        if (CanBeEquipped)
+        // Only attack when we are equipped
+        if (!CanBeEquipped)
         {
             projectileManager.SpawnProjectile(projectileType);
         }

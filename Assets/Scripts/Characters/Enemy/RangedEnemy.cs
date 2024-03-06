@@ -2,20 +2,18 @@ using UnityEngine;
 
 public class RangedEnemy : BaseEnemy
 {
-    private ProjectileManager projectileManager;
-    private float bulletSpeed = 1f;
+    //private ProjectileManager projectileManager;
+    //private WeaponManager weaponManager;
 
     private new void Start()
     {
         base.Start();
-        projectileManager = ProjectileManager.Instance;
-
-        if (projectileManager == null)
-            Debug.LogError("Could not find required component ProjectileManager");
     }
 
     public override void Attack()
     {
+        weaponManager.AttackWithCurrentWeapon();
+
         // Implement range-specific attack logic here
         Debug.Log("Ranged Enemy Attacks!");
         GameObject bullet = projectileManager.SpawnProjectile("Bullet");
