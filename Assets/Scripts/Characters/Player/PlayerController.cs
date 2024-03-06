@@ -1,3 +1,4 @@
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 [RequireComponent(typeof(Player))]
@@ -14,9 +15,9 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        player = GetComponent<Player>();
-        basicMovement = GetComponent<BasicMovement>();
-        dashMovement = GetComponent<DashMovement>();
+        player = GetComponent<Player>() ?? GetComponentInChildren<Player>();
+        basicMovement = GetComponent<BasicMovement>() ?? GetComponentInChildren<BasicMovement>();
+        dashMovement = GetComponent<DashMovement>() ?? GetComponentInChildren<DashMovement>();
 
         ValidateComponents();
     }

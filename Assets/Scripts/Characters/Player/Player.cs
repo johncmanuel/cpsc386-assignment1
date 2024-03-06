@@ -13,7 +13,6 @@ public class Player : MonoBehaviour, IDamageable
     private Invulnerability invulnerability;
     private WeaponManager weaponManager;
 
-
     public float Health
     {
         get => health;
@@ -22,9 +21,9 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        invulnerability = GetComponent<Invulnerability>();
-        weaponManager = GetComponent<WeaponManager>();
+        rb = GetComponent<Rigidbody2D>() ?? GetComponentInChildren<Rigidbody2D>();
+        invulnerability = GetComponent<Invulnerability>() ?? GetComponentInChildren<Invulnerability>();
+        weaponManager = GetComponent<WeaponManager>() ?? GetComponentInChildren<WeaponManager>();
 
         if (rb == null)
             Debug.LogError("Couldn't find required Rigidbody2D component");
@@ -49,7 +48,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        Debug.Log("Player died!!");
+        Debug.Log("Player died!");
         GameManager.Instance.UpdateGameState(GameStateType.PlayerDied);
     }
 
@@ -67,7 +66,7 @@ public class Player : MonoBehaviour, IDamageable
 
         foreach (var hit in hits)
         {
-            IInteractable interactable = hit.GetComponent<IInteractable>();
+            IInteractable interactable = hit.GetComponent<IInteractable>() ?? hit.GetComponentInChildren<IInteractable>();
             if (interactable != null)
             {
                 float distance = Vector2.Distance(transform.position, hit.transform.position);

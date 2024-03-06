@@ -21,7 +21,7 @@ public class ProjectileManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        projectilePool = GetComponent<ProjectilePool>();
+        projectilePool = GetComponent<ProjectilePool>() ?? GetComponentInChildren<ProjectilePool>();
         if (projectilePool == null)
             Debug.LogError("Could not find required component ProjectilePool");
     }

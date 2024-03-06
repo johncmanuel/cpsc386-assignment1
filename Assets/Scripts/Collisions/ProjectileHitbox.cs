@@ -6,8 +6,6 @@ public class ProjectileHitbox : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        Debug.Log(gameObject.name + "'s projectile hitbox collided with: " + collision.gameObject.name);
-
         // check for collision with desired collision tags
         foreach (var tag in collisionCheckTags)
         {

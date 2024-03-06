@@ -2,8 +2,16 @@ using UnityEngine;
 
 public class WeaponManager : MonoBehaviour
 {
-    [SerializeField] private Transform weaponHolder;
+    [SerializeField] private Transform weaponAttachPoint;
     private IWeapon currentWeapon;
+
+    public void Start()
+    {
+        if (weaponAttachPoint == null)
+        {
+            Debug.LogError("The weaponAttachPoint was not set in inspector.");
+        }
+    }
 
     public void EquipWeapon(IWeapon newWeapon)
     {
@@ -15,7 +23,7 @@ public class WeaponManager : MonoBehaviour
         currentWeapon = newWeapon;
         GameObject weaponObject = ((MonoBehaviour)currentWeapon).gameObject;
 
-        weaponObject.transform.SetParent(weaponHolder);
+        weaponObject.transform.SetParent(weaponAttachPoint);
         weaponObject.transform.localPosition = Vector3.zero;
         weaponObject.transform.localRotation = Quaternion.identity;
 

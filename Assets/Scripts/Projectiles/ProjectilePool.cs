@@ -18,7 +18,7 @@ public class ProjectilePool : MonoBehaviour
     {
         foreach (var prefab in projectilePrefabs)
         {
-            IProjectile projectileScript = prefab.GetComponent<IProjectile>();
+            IProjectile projectileScript = prefab.GetComponent<IProjectile>() ?? GetComponentInChildren<IProjectile>();
             if (projectileScript == null)
             {
                 Debug.LogWarning($"Prefab {prefab.name} does not have an IProjectile component. Check ProjectilePool in inspector.");
@@ -55,7 +55,7 @@ public class ProjectilePool : MonoBehaviour
 
     public void ReleaseProjectile(GameObject projectile)
     {
-        IProjectile projectileComponent = projectile.GetComponent<IProjectile>();
+        IProjectile projectileComponent = projectile.GetComponent<IProjectile>() ?? GetComponentInChildren<IProjectile>();
         if (projectileComponent != null && pools.TryGetValue(projectileComponent.Type, out var pool))
         {
             pool.Release(projectile);

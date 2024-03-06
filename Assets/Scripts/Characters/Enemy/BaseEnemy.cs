@@ -1,10 +1,14 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(WeaponManager))]
 public abstract class BaseEnemy : MonoBehaviour, IDamageable, ICombatant
 {
     [SerializeField] private float health;
-    private Rigidbody2D rb;
+    private IWeapon weaponToEquip;
+
+    private WeaponManager weaponManager;
 
     public float Health
     {
@@ -12,9 +16,17 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable, ICombatant
         set => health = Mathf.Max(value, 0);
     }
 
-    private void Awake()
+    public void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        weaponManager = GetComponent<WeaponManager>() ?? GetComponentInChildren<WeaponManager>();
+        if (weaponManager == null)
+            Debug.LogError("Couldn't find required weaponManager component");
+
+        weaponToEquip = GetComponent<IWeapon>() ?? GetComponentInChildren<IWeapon>();
+        if (weaponToEquip == null)
+            Debug.LogError("Couldn't find required IWeapon inherited component in children");
+
+        weaponManager.EquipWeapon(weaponToEquip);
     }
 
     public abstract void Attack();
