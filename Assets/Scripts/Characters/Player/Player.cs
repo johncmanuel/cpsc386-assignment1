@@ -13,6 +13,8 @@ public class Player : MonoBehaviour, IDamageable
     private Invulnerability invulnerability;
     private WeaponManager weaponManager;
 
+    [SerializeField] private HealthBar healthBar;
+
     public float Health
     {
         get => health;
@@ -44,6 +46,8 @@ public class Player : MonoBehaviour, IDamageable
         {
             Die();
         }
+
+        healthBar.UpdateHealthBarSize(Health / 10f);
     }
 
     public void Die()

@@ -4643,9 +4643,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1924667582}
     m_Modifications:
-    - target: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
       propertyPath: m_Name
-      value: RangedEnemy
+      value: PlayerUI
       objectReference: {fileID: 0}
     - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_LocalPosition.x
