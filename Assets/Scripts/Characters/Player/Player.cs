@@ -6,9 +6,12 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private float health;
+
     private Rigidbody2D rb;
 
     private Invulnerability invulnerabilityComponent;
+
+    [SerializeField] private HealthBar healthBar;
 
     public float Health
     {
@@ -24,7 +27,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Bullet"))
+        if (collision.gameObject.CompareTag(Tags.Projectile))
         {
             TakeDamage(10);
         }
@@ -39,6 +42,8 @@ public class Player : MonoBehaviour, IDamageable
         {
             Die();
         }
+
+        healthBar.UpdateHealthBarSize(Health / 10f);
     }
 
     public void Die()
