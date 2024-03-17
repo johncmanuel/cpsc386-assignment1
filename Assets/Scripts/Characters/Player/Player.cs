@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private float health;
+    private float maxHealth;
 
     private Rigidbody2D rb;
 
@@ -23,6 +24,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         rb = GetComponent<Rigidbody2D>();
         invulnerabilityComponent = GetComponent<Invulnerability>();
+        maxHealth = Health;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -43,7 +45,7 @@ public class Player : MonoBehaviour, IDamageable
             Die();
         }
 
-        healthBar.UpdateHealthBarSize(Health / 10f);
+        healthBar.UpdateHealthBar(Health / maxHealth);
     }
 
     public void Die()
