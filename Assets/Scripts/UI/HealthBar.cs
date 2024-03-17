@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-    private RectTransform healthBarRect;
+    private Image healthBarImage;
 
-    [SerializeField]
-    private GameObject entity;
+    // Any entity that implements IDamageable
+    [SerializeField] private GameObject entity;
 
     // Start is called before the first frame update
     void Start()
     {
-        healthBarRect = GetComponent<RectTransform>();
+        healthBarImage = GetComponent<Image>();
 
         if (entity == null)
         {
@@ -26,13 +27,12 @@ public class HealthBar : MonoBehaviour
             return;
         }
 
-        UpdateHealthBarSize(damagable.Health / 10f);
-
+        UpdateHealthBar(damagable.Health);
     }
 
-    public void UpdateHealthBarSize(float size)
+    public void UpdateHealthBar(float health)
     {
-        healthBarRect.localScale = new Vector3(size, 1f);
+        healthBarImage.fillAmount = Mathf.Clamp01(health);
     }
 
 }

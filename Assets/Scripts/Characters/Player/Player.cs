@@ -8,6 +8,7 @@ public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private float health;
     [SerializeField] private float interactionRadius = 1f;
+    private float maxHealth;
 
     private Rigidbody2D rb;
     private Invulnerability invulnerability;
@@ -47,7 +48,7 @@ public class Player : MonoBehaviour, IDamageable
             Die();
         }
 
-        healthBar.UpdateHealthBarSize(Health / 10f);
+        healthBar.UpdateHealthBar(Health / maxHealth);
     }
 
     public void Die()
