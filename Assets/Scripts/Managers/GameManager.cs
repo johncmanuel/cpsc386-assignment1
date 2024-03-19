@@ -101,4 +101,9 @@ public class GameManager : MonoBehaviour
     {
         return SceneManager.GetActiveScene().buildIndex;
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
 }

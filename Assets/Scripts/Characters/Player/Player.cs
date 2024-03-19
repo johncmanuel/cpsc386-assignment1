@@ -9,6 +9,7 @@ public class Player : MonoBehaviour, IDamageable
     [SerializeField] private float health;
     [SerializeField] private float interactionRadius = 1f;
     private float maxHealth;
+    private GameManager gameManager;
 
     private Rigidbody2D rb;
     private Invulnerability invulnerability;

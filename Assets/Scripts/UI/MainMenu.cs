@@ -29,6 +29,6 @@ public class MainMenu : MonoBehaviour
         // Handle anything here before the game is exited.
         // ...
 
-        Application.Quit();
+        gameManager.QuitGame();
     }
 }
