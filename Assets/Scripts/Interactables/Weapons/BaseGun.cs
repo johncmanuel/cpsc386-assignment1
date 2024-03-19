@@ -14,6 +14,8 @@ public abstract class BaseGun : MonoBehaviour, IWeapon
     {
         projectileManager = ProjectileManager.Instance;
         if (projectileManager == null) Debug.LogError("Couldn't find required ProjectileManager component");
+
+        if (!bulletSpawn) Debug.LogError("The Bullet Spawn transform for the weapon needs to be set in the inspector.");
     }
 
     public void Attack()
@@ -21,9 +23,23 @@ public abstract class BaseGun : MonoBehaviour, IWeapon
         // Only attack when we are equipped
         if (!CanBeEquipped)
         {
-            projectileManager.SpawnProjectile(projectileType);
+            GameObject bullet = projectileManager.SpawnProjectile(projectileType);
+
+            // bulletSpawn is a Transform representing the exact point of bullet spawning
+            Vector3 spawnPosition = bulletSpawn.position;
+            Quaternion spawnRotation = bulletSpawn.rotation;
+
+            // Set the bullets position and rotation to match the bulletSpawns
+            bullet.transform.position = spawnPosition;
+            bullet.transform.rotation = spawnRotation;
+
+            // Use the bulletSpawns forward direction as the attack direction, assuming bulletSpawn is oriented correctly
+            Vector3 attackVelocity = bulletSpawn.forward * bulletSpeed;
+
+            bullet.GetComponent<Rigidbody2D>().velocity = attackVelocity;
         }
     }
+
 
     public bool CanInteract(GameObject objectInteractingWithMe)
     {

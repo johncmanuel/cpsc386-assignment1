@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface IWeapon : IInteractable
 {
     bool CanBeEquipped { get; set; }

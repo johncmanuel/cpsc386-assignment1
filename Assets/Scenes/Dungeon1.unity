@@ -4240,7 +4240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2022053758}
   m_Layer: 0
-  m_Name: Levels
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4395,7 +4395,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 653110883810841234, guid: 65531cf7faf9ec241afb3079eaaad314, type: 3}
       propertyPath: m_Name
-      value: testbow
+      value: Pistol
       objectReference: {fileID: 0}
     - target: {fileID: 2534540601349866409, guid: 65531cf7faf9ec241afb3079eaaad314, type: 3}
       propertyPath: m_LocalScale.x
@@ -4591,7 +4591,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4055652203281282537, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: weaponAttachPoint
@@ -4718,8 +4718,8 @@ SceneRoots:
   - {fileID: 527693219}
   - {fileID: 7057150481846460692}
   - {fileID: 1026099616}
-  - {fileID: 2022053758}
-  - {fileID: 1642608498}
   - {fileID: 1924667582}
   - {fileID: 1264071409}
   - {fileID: 653954724}
+  - {fileID: 2022053758}
+  - {fileID: 1642608498}
