@@ -13,8 +13,6 @@ public class MainMenu : MonoBehaviour
             Debug.LogError("Game Manager is null");
             return;
         }
-
-        gameManager.UpdateGameState(GameStateType.InMainMenu);
     }
 
     public void PlayGame()
