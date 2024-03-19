@@ -1,35 +1,36 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-    // Most of the menu functionality can be implemented in a service responsible for UI.
-    // That will be worked upon later in the development cycle.
-    // - John
+    private GameManager gameManager;
+
+    void Start()
+    {
+        gameManager = GameManager.Instance;
+
+        if (gameManager == null)
+        {
+            Debug.LogError("Game Manager is null");
+            return;
+        }
+
+        gameManager.UpdateGameState(GameStateType.InMainMenu);
+    }
 
     public void PlayGame()
     {
         Debug.Log("Playing game");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        // gameManager.UpdateGameState(GameStateType.PlayingLevel);
+        gameManager.SwitchToScene(gameManager.GetActiveSceneBuildIndex() + 1);
     }
 
-    public void QuitGame() 
+    public void QuitGame()
     {
         Debug.Log("Quitting game");
+
+        // Handle anything here before the game is exited.
+        // ...
+
         Application.Quit();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
