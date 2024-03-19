@@ -16,8 +16,6 @@ public class GameOverMenu : MonoBehaviour
             Debug.LogError("Game Manager is null");
             return;
         }
-
-        // Will have a game state type for game overs soon...
     }
 
     public void PlayAgain()
@@ -31,6 +29,6 @@ public class GameOverMenu : MonoBehaviour
     public void QuitGame()
     {
         Debug.Log("Quitting game");
-        Application.Quit();
+        gameManager.QuitGame();
     }
 }

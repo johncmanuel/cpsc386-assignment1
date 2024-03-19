@@ -7,6 +7,7 @@ public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private float health;
     private float maxHealth;
+    private GameManager gameManager;
 
     private Rigidbody2D rb;
 
@@ -24,6 +25,7 @@ public class Player : MonoBehaviour, IDamageable
     {
         rb = GetComponent<Rigidbody2D>();
         invulnerabilityComponent = GetComponent<Invulnerability>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         maxHealth = Health;
     }
 
@@ -38,7 +40,6 @@ public class Player : MonoBehaviour, IDamageable
     public void TakeDamage(float amount)
     {
         if (invulnerabilityComponent.IsInvulnerable) return;
-
         Health -= amount;
         if (Health <= 0)
         {
@@ -51,7 +52,10 @@ public class Player : MonoBehaviour, IDamageable
     public void Die()
     {
         Debug.Log("Player died!!");
-        // whatever happens when the player dies
+
+        // Switch to the game over menu if the player dies
+        gameManager.UpdateGameState(GameStateType.PlayerDied);
+        gameManager.SwitchToScene("GameOverMenu");
     }
 
     public void Attack()
