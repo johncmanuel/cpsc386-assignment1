@@ -4392,6 +4392,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerUI
       objectReference: {fileID: 0}
+    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2623992710506902910, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4476,6 +4480,22 @@ PrefabInstance:
       propertyPath: entity
       value: 
       objectReference: {fileID: 1029742766}
+    - target: {fileID: 5045069460748057110, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_Type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045069460748057110, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+    - target: {fileID: 5045069460748057110, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_FillAmount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5045069460748057110, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_FillMethod
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
