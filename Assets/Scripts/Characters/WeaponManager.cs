@@ -5,6 +5,11 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] private Transform weaponAttachPoint;
     private IWeapon currentWeapon;
 
+    public IWeapon CurrentWeapon
+    {
+        get { return currentWeapon; }
+        private set { currentWeapon = value; }
+    }
     public void Start()
     {
         if (weaponAttachPoint == null)

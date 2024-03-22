@@ -10,6 +10,5 @@ public class RangedEnemy : BaseEnemy
     public override void Attack()
     {
         weaponManager.AttackWithCurrentWeapon();
-        Debug.Log("Ranged Enemy Attacks!");
     }
 }

@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 2478100405079336098}
   - component: {fileID: 7306862116060965237}
   - component: {fileID: 4055652203281282537}
+  - component: {fileID: 8685534022672081663}
   m_Layer: 0
   m_Name: RangedEnemy
   m_TagString: Enemy
@@ -177,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a8ed0f22d01c14e92dd193a5b90b75, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  health: 200
 --- !u!114 &5921581042325520319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +245,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponAttachPoint: {fileID: 7341505949664184120}
+--- !u!114 &8685534022672081663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890048543646763349}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afbfd509166eb2f448bd0ea1c1c63a3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2977106464143366800
 GameObject:
   m_ObjectHideFlags: 0

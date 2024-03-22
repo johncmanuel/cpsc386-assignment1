@@ -22,9 +22,11 @@ public class EnemyController : MonoBehaviour
     [SerializeField] private Range reactionTime = new Range { min = 0.8f, max = 1.2f };
     [SerializeField] private Range attackCooldown = new Range { min = 1.25f, max = 2.25f };
     [SerializeField] private Range movementPauseAfterAttack = new Range { min = 0.15f, max = 0.35f };
+    [SerializeField] private float initialDelay = .05f;
 
     private float lastAttackTime = -Mathf.Infinity;
     private float lastMoveAfterAttackTime = -Mathf.Infinity;
+    private float startTime;
     private float currentReactionTime;
     private float currentAttackCooldown;
     private float currentDetectionRange;
@@ -35,8 +37,9 @@ public class EnemyController : MonoBehaviour
         basicMovement = GetComponent<BasicMovement>() ?? GetComponentInChildren<BasicMovement>();
         if (target == null) target = GameObject.FindGameObjectWithTag(Tags.Player).transform;
 
-        // Initialize randomized values
+        // Initialize randomized values and start time
         ResetRandomTimes();
+        startTime = Time.time;
     }
 
     private void ResetRandomTimes()
@@ -48,7 +51,7 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
-        if (target == null) return;
+        if (target == null || Time.time - startTime < initialDelay) return;
 
         float distance = Vector2.Distance(transform.position, target.position);
         float timeSinceAttack = Time.time - lastAttackTime;

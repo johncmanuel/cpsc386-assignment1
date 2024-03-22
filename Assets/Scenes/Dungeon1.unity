@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 94559289}
   - component: {fileID: 94559288}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -214,7 +214,7 @@ GameObject:
   - component: {fileID: 537689571}
   - component: {fileID: 537689570}
   - component: {fileID: 537689572}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Collision
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -1355,6 +1355,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: afbfd509166eb2f448bd0ea1c1c63a3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &563957844
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1924667582}
+    m_Modifications:
+    - target: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      propertyPath: m_Name
+      value: RangedEnemy (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.782
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.486
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+--- !u!4 &563957845 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
+  m_PrefabInstance: {fileID: 563957844}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &653954723
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,7 +1584,7 @@ GameObject:
   - component: {fileID: 1156743954}
   - component: {fileID: 1156743956}
   - component: {fileID: 1156743955}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Tilemap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4215,6 +4277,7 @@ Transform:
   m_Children:
   - {fileID: 1429205918}
   - {fileID: 878849789}
+  - {fileID: 563957845}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2022053757
@@ -4367,6 +4430,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EnterNextScene
       objectReference: {fileID: 0}
+    - target: {fileID: 6000586686456398615, guid: 7ff56eb3ae5748f46b42bfdcb0abddb1, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4398,7 +4465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2534540601349866409, guid: 65531cf7faf9ec241afb3079eaaad314, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.309
+      value: -0.108
       objectReference: {fileID: 0}
     - target: {fileID: 2534540601349866409, guid: 65531cf7faf9ec241afb3079eaaad314, type: 3}
       propertyPath: m_LocalPosition.y

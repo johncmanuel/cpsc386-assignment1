@@ -10,6 +10,7 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable, ICombatant
     protected IWeapon weaponToEquip;
     protected WeaponManager weaponManager;
     protected WeaponRotator weaponRotator;
+    protected float unequipProbability = 0.25f;
 
     public float Health
     {
@@ -60,12 +61,24 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable, ICombatant
         {
             Die();
         }
-        Debug.Log($"Enemy took {amount} damage. Remaining health: {Health}");
+        else Debug.Log($"Enemy took {amount} damage. Remaining health: {Health}");
     }
 
     public virtual void Die()
     {
         Debug.Log("Enemy Died!");
-        // Implement death logic here, like playing an animation or disabling the enemy
+        // Implement death logic
+
+        float randomValue = Random.value; // between 0 and 1
+
+        // Check if the random value is within the probability of unequipping the weapon
+        if (randomValue < unequipProbability)
+        {
+            IWeapon currentWeapon = weaponManager.CurrentWeapon;
+
+            weaponManager.UnequipCurrentWeapon();
+        }
+
+        Destroy(this.gameObject);
     }
 }

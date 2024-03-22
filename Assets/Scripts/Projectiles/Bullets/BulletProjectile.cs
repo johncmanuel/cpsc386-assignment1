@@ -41,7 +41,6 @@ public class BulletProjectile : MonoBehaviour, IProjectile
 
     public void DestroyProjectile()
     {
-        Debug.Log("Bullet deactivated");
         StopCoroutine(lifetimeCoroutine);
         projectileManager.ReturnProjectileToPool(gameObject);
         gameObject.SetActive(false);
@@ -51,10 +50,5 @@ public class BulletProjectile : MonoBehaviour, IProjectile
     {
         collisionBehavior.ApplyCollisionEffect(other.gameObject);
         DestroyProjectile();
-    }
-
-    private void OnDisable()
-    {
-        Debug.Log("Bullet deactivated");
     }
 }

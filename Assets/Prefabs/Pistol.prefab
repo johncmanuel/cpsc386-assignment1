@@ -144,7 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e36d6a14f48d684996a1de1ae4afa3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 1
+  attackCooldown: 0.1
+  bulletSpeed: 1.15
   bulletSpawn: {fileID: 4533291536526996935}
 --- !u!1 &3350003607227761556
 GameObject:
