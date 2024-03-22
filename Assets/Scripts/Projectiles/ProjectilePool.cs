@@ -15,7 +15,7 @@ public class ProjectilePool : MonoBehaviour, IPoolsObjectTypes
 
     private readonly Dictionary<string, ObjectPool<GameObject>> projectilePools = new();
     
-    private const int InitialPoolCapacity = 10;
+    private const int InitialPoolCapacity = 40;
     private const int MaxPoolSize = 100;
 
     private void Start()

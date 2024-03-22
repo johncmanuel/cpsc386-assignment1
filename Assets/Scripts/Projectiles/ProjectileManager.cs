@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-[RequireComponent(typeof(ProjectilePool))]
+[RequireComponent(typeof(IPoolsObjectTypes))]
 public class ProjectileManager : MonoBehaviour
 {
     public static ProjectileManager Instance { get; private set; }
@@ -37,7 +37,7 @@ public class ProjectileManager : MonoBehaviour
         return proj;
     }
 
-    public void DeleteProjectile(GameObject proj)
+    public void ReturnProjectileToPool(GameObject proj)
     {
         if (proj == null)
         {

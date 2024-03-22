@@ -11,23 +11,25 @@ public class BulletProjectile : MonoBehaviour, IProjectile
     private string projectileType = "Bullet";
     public string Type => projectileType;
 
-
     private ICollisionBehavior collisionBehavior;
 
-    void Start()
+    private Coroutine lifetimeCoroutine;
+
+    void OnEnable()
     {
         projectileManager = ProjectileManager.Instance;
         if (projectileManager == null) Debug.LogError("Couldn't find required ProjectileManager component");
 
         collisionBehavior = new DamageOnCollision(damageAmount);
 
-        StartCoroutine(DestroyAfterTime(lifetime));
+        // Reset and start the lifetime countdown every time the bullet is enabled
+        lifetimeCoroutine = StartCoroutine(DestroyAfterTime(lifetime));
     }
 
     public void OnHitTarget(GameObject hitObject)
     {
         Debug.Log("Bullet hit " + hitObject.name);
-        hitObject.GetComponent<IDamageable>().TakeDamage(damageAmount);
+        hitObject.GetComponent<IDamageable>()?.TakeDamage(damageAmount);
         DestroyProjectile();
     }
 
@@ -39,18 +41,20 @@ public class BulletProjectile : MonoBehaviour, IProjectile
 
     public void DestroyProjectile()
     {
-        projectileManager.DeleteProjectile(gameObject);
+        Debug.Log("Bullet deactivated");
+        StopCoroutine(lifetimeCoroutine);
+        projectileManager.ReturnProjectileToPool(gameObject);
+        gameObject.SetActive(false);
     }
 
     void OnTriggerEnter(Collider other)
     {
         collisionBehavior.ApplyCollisionEffect(other.gameObject);
-
         DestroyProjectile();
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
-        Debug.Log("Bullet destroyed");
+        Debug.Log("Bullet deactivated");
     }
 }

@@ -12,24 +12,29 @@ public class PlayerController : MonoBehaviour
     private Vector2 movementInput;
     private BasicMovement basicMovement;
     private DashMovement dashMovement;
+    private WeaponRotator weaponRotator;
 
     private void Start()
     {
+        // Get Components
         player = GetComponent<Player>() ?? GetComponentInChildren<Player>();
         basicMovement = GetComponent<BasicMovement>() ?? GetComponentInChildren<BasicMovement>();
         dashMovement = GetComponent<DashMovement>() ?? GetComponentInChildren<DashMovement>();
+        weaponRotator = GetComponent<WeaponRotator>() ?? GetComponentInChildren<WeaponRotator>();
 
-        ValidateComponents();
-    }
-
-    private void ValidateComponents()
-    {
+        // Check them
         if (player == null)
             Debug.LogError("Couldn't find required Player component");
         if (basicMovement == null)
             Debug.LogError("Couldn't find required BasicMovement component");
         if (dashMovement == null)
             Debug.LogError("Couldn't find required DashMovement component");
+        if (weaponRotator == null)
+            Debug.LogError("Couldn't find required WeaponRotator component");
+
+        // Set them up
+        IRotationInput mouseRotationInput = new MouseRotationInput(Camera.main);
+        weaponRotator.SetRotationInput(mouseRotationInput);
     }
 
     private void Update()
