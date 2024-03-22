@@ -4471,6 +4471,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ProjectileManager
       objectReference: {fileID: 0}
+    - target: {fileID: 713557525675517573, guid: c01b15da93835e8458b4be272448970e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3444275764535160463, guid: c01b15da93835e8458b4be272448970e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -1,14 +1,19 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class BaseGun : MonoBehaviour, IWeapon
 {
-    private ProjectileManager projectileManager;
-    private string projectileType = "Bullet";
     public bool CanBeEquipped { get; set; } = true;
 
-    [SerializeField] private float bulletSpeed = 1f;
+    private ProjectileManager projectileManager;
+    private string projectileType = "Bullet";
+    private bool canAttack = true;
 
+    [SerializeField] private float attackCooldown = 0.1f;
+    [SerializeField] private float bulletSpeed = 1f;
     [SerializeField] private Transform bulletSpawn;
+
+    private bool attackQueued = false;
 
     private void Start()
     {
@@ -20,26 +25,45 @@ public abstract class BaseGun : MonoBehaviour, IWeapon
 
     public void Attack()
     {
-        // Only attack when we are equipped
-        if (!CanBeEquipped)
+        if (CanBeEquipped) return;
+
+        if (!canAttack)
         {
-            GameObject bullet = projectileManager.SpawnProjectile(projectileType);
-
-            // bulletSpawn is a Transform representing the exact point of bullet spawning
-            Vector3 spawnPosition = bulletSpawn.position;
-            Quaternion spawnRotation = bulletSpawn.rotation;
-
-            // Set the bullets position and rotation to match the bulletSpawns
-            bullet.transform.position = spawnPosition;
-            bullet.transform.rotation = spawnRotation;
-
-            // Use the bulletSpawns forward direction as the attack direction, assuming bulletSpawn is oriented correctly
-            Vector3 attackVelocity = bulletSpawn.forward * bulletSpeed;
-
-            bullet.GetComponent<Rigidbody2D>().velocity = attackVelocity;
+            attackQueued = true;
+            return;
         }
+
+        PerformAttack();
+        StartCoroutine(StartAttackCooldown());
     }
 
+    private void PerformAttack()
+    {
+        GameObject bullet = projectileManager.SpawnProjectile(projectileType);
+
+        Vector2 spawnPosition = bulletSpawn.position;
+        Quaternion spawnRotation = bulletSpawn.rotation;
+
+        bullet.transform.position = spawnPosition;
+        bullet.transform.rotation = spawnRotation;
+
+        Vector2 attackVelocity = bulletSpawn.right * bulletSpeed;
+
+        bullet.GetComponent<Rigidbody2D>().velocity = attackVelocity;
+    }
+
+    private IEnumerator StartAttackCooldown()
+    {
+        canAttack = false;
+        yield return new WaitForSeconds(attackCooldown);
+        canAttack = true;
+
+        if (attackQueued)
+        {
+            attackQueued = false;
+            PerformAttack();
+        }
+    }
 
     public bool CanInteract(GameObject objectInteractingWithMe)
     {
@@ -48,7 +72,11 @@ public abstract class BaseGun : MonoBehaviour, IWeapon
 
     public void InteractWith(GameObject objectInteractingWithMe)
     {
-        // Ensure the object interacting has a WeaponManager to equip the weapon
+        EquipWeapon(objectInteractingWithMe);
+    }
+
+    private void EquipWeapon(GameObject objectInteractingWithMe)
+    {
         WeaponManager weaponManager = objectInteractingWithMe.GetComponent<WeaponManager>();
         if (weaponManager != null && CanBeEquipped)
         {

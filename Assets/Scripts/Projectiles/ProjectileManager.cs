@@ -28,7 +28,7 @@ public class ProjectileManager : MonoBehaviour
 
     public GameObject SpawnProjectile(string type)
     {
-        var proj = projectilePool.GetPooledProjectile(type);
+        var proj = projectilePool.GetPooledObjectByType(type);
         if (proj == null)
         {
             Debug.LogError("Failed to spawn projectile.");
@@ -45,6 +45,6 @@ public class ProjectileManager : MonoBehaviour
             return;
         }
 
-        projectilePool.ReleaseProjectile(proj);
+        projectilePool.ReleasePooledObject(proj);
     }
 }
