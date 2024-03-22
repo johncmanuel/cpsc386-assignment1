@@ -9,7 +9,7 @@ public class MovementManager : MonoBehaviour
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>() ?? GetComponentInChildren<Rigidbody2D>();
     }
 
     void FixedUpdate()

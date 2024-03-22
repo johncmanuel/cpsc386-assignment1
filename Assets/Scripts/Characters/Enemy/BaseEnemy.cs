@@ -1,10 +1,15 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Collider2D))]
 [RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(WeaponManager))]
 public abstract class BaseEnemy : MonoBehaviour, IDamageable, ICombatant
 {
-    [SerializeField] private float health;
-    private Rigidbody2D rb;
+    [SerializeField] protected float health;
+
+    protected IWeapon weaponToEquip;
+    protected WeaponManager weaponManager;
+    protected WeaponRotator weaponRotator;
 
     public float Health
     {
@@ -12,9 +17,38 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable, ICombatant
         set => health = Mathf.Max(value, 0);
     }
 
-    private void Awake()
+    public void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
+        // Get Components
+        weaponManager = GetComponent<WeaponManager>() ?? GetComponentInChildren<WeaponManager>();
+        weaponToEquip = GetComponent<IWeapon>() ?? GetComponentInChildren<IWeapon>();
+        weaponRotator = GetComponent<WeaponRotator>() ?? GetComponentInChildren<WeaponRotator>();
+
+        // Check them
+        if (weaponManager == null)
+            Debug.LogError("Couldn't find required weaponManager component");
+        if (weaponToEquip == null)
+            Debug.LogError("Couldn't find required IWeapon inherited component in children");
+        if (weaponRotator == null)
+        {
+            Debug.LogError("Couldn't find required WeaponRotator component");
+            return;
+        }
+
+        // Set them up
+        weaponManager.EquipWeapon(weaponToEquip);
+
+        GameObject playerObject = GameObject.FindGameObjectWithTag(Tags.Player);
+        if (playerObject != null)
+        {
+            Transform playerTransform = playerObject.transform;
+            IRotationInput aiTargetRotationInput = new AITargetRotationInput(playerTransform);
+            weaponRotator.SetRotationInput(aiTargetRotationInput);
+        }
+        else
+        {
+            Debug.LogError("Player object not found in the scene.");
+        }
     }
 
     public abstract void Attack();

@@ -31,9 +31,9 @@ public class EnemyController : MonoBehaviour
 
     private void Awake()
     {
-        enemy = GetComponent<BaseEnemy>();
-        basicMovement = GetComponent<BasicMovement>();
-        if (target == null) target = GameObject.FindGameObjectWithTag("Player").transform;
+        enemy = GetComponent<BaseEnemy>() ?? GetComponentInChildren<BaseEnemy>();
+        basicMovement = GetComponent<BasicMovement>() ?? GetComponentInChildren<BasicMovement>();
+        if (target == null) target = GameObject.FindGameObjectWithTag(Tags.Player).transform;
 
         // Initialize randomized values
         ResetRandomTimes();

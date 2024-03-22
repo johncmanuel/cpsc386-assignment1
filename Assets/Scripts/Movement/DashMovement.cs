@@ -10,30 +10,27 @@ public class DashMovement : MonoBehaviour, IMovementContribution
     private bool isDashing = false;
     private Vector2 dashDirection = Vector2.zero;
 
-
-    [SerializeField] private Invulnerability invulnerabilityComponent;
+    [SerializeField] private Invulnerability invulnerability;
     [SerializeField] private MovementManager movementManager;
 
     void Start()
     {
         SetUpMovementManager();
 
-        if (invulnerabilityComponent == null)
-            invulnerabilityComponent = GetComponent<Invulnerability>();
+        if (invulnerability == null)
+            invulnerability = GetComponent<Invulnerability>() ?? GetComponentInChildren<Invulnerability>();
 
-        if (invulnerabilityComponent == null)
+        if (invulnerability == null)
             Debug.LogError("Could not find required Invulnerability component");
     }
 
     void SetUpMovementManager()
     {
-        // Try to use the serialized field first, then look for the component on the current GameObject or an ancestor
         if (movementManager == null)
         {
             movementManager = GetComponent<MovementManager>() ?? GetComponentInParent<MovementManager>();
         }
 
-        // Log an error if the component is still not found after the search
         if (movementManager == null)
         {
             Debug.LogError("MovementManager is null. It was not assigned in the inspector, and could not be found in GameObject or Parent.");
@@ -64,7 +61,7 @@ public class DashMovement : MonoBehaviour, IMovementContribution
         {
             dashDirection = direction;
             isDashing = true;
-            invulnerabilityComponent.BecomeInvulnerable();
+            invulnerability.BecomeInvulnerable();
             StartCoroutine(DashDuration());
         }
     }

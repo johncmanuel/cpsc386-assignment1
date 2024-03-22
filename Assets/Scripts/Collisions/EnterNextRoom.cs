@@ -9,25 +9,24 @@ public class EnterNextRoom : MonoBehaviour
 
     private void Start()
     {
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = GameManager.Instance;
+
+        if (gameManager == null)
+        {
+            Debug.LogError("GameManager Singleton instance not found. Ensure the GameManager exists in the scene by this point.");
+        }
+
+        if (sceneName == null)
+        {
+            Debug.LogError("Scene Name not set in inspector.");
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (col.gameObject.CompareTag(Tags.Player))
         {
-            if (gameManager == null)
-            {
-                Debug.LogError("Game Manager not set.");
-                return;
-            }
-
-            if (sceneName == null)
-            {
-                Debug.LogError("Scene Name not set.");
-                return;
-            }
-
+            GameManager.Instance.UpdateGameState(GameStateType.LevelCompleted);
             gameManager.SwitchToScene(sceneName);
         }
     }

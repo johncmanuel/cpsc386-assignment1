@@ -1,39 +1,86 @@
 using UnityEngine;
 using UnityEngine.Pool;
+using System.Collections.Generic;
 
-public class ProjectilePool : MonoBehaviour
+public interface IPoolsObjectTypes
+{
+    GameObject GetPooledObjectByType(string type);
+    void ReleasePooledObject(GameObject pooledObject);
+}
+
+public class ProjectilePool : MonoBehaviour, IPoolsObjectTypes
 {
     [SerializeField]
-    private GameObject projectilePrefab;
-    [SerializeField]
-    private int maxProjectiles = 100;
-    public ObjectPool<GameObject> pool { get; protected set; }
+    private List<GameObject> projectilePrefabs;
 
-    private void OnEnable()
+    private readonly Dictionary<string, ObjectPool<GameObject>> projectilePools = new();
+    
+    private const int InitialPoolCapacity = 40;
+    private const int MaxPoolSize = 100;
+
+    private void Start()
     {
-        pool = new ObjectPool<GameObject>(CreateProjectile, OnGetFromPool, OnReleaseToPool, OnDestroyPooledProjectile, maxSize: maxProjectiles);
-    }
-    private GameObject CreateProjectile()
-    {
-        GameObject proj = Instantiate(projectilePrefab);
-        proj.SetActive(false);
-        proj.transform.SetParent(transform);
-        return proj;
+        InitializeProjectilePools();
     }
 
-    private void OnReleaseToPool(GameObject pooledProjectile)
+    private void InitializeProjectilePools()
     {
-        pooledProjectile.gameObject.SetActive(false);
+        foreach (var prefab in projectilePrefabs)
+        {
+            var projectileScript = prefab.GetComponent<IProjectile>() ?? prefab.GetComponentInChildren<IProjectile>();
+            if (projectileScript == null)
+            {
+                Debug.LogWarning($"Prefab {prefab.name} does not have an IProjectile component. Check ProjectilePoolManager in inspector.");
+                continue;
+            }
+
+            projectilePools[projectileScript.Type] = CreatePoolForPrefab(prefab);
+        }
     }
 
-    private void OnGetFromPool(GameObject pooledProjectile)
+    private ObjectPool<GameObject> CreatePoolForPrefab(GameObject prefab)
     {
-        pooledProjectile.gameObject.SetActive(true);
+        return new ObjectPool<GameObject>(
+            createFunc: () => InstantiatePrefab(prefab),
+            actionOnGet: ActivateGameObject,
+            actionOnRelease: DeactivateGameObject,
+            actionOnDestroy: GameObject.Destroy,
+            collectionCheck: false,
+            defaultCapacity: InitialPoolCapacity,
+            maxSize: MaxPoolSize);
     }
 
-    private void OnDestroyPooledProjectile(GameObject pooledProjectile)
+    private GameObject InstantiatePrefab(GameObject prefab)
     {
-        Destroy(pooledProjectile.gameObject);
+        var instance = Instantiate(prefab);
+        instance.name = prefab.name;
+        return instance;
     }
 
+    private static void ActivateGameObject(GameObject obj) => obj.SetActive(true);
+    private static void DeactivateGameObject(GameObject obj) => obj.SetActive(false);
+
+    public GameObject GetPooledObjectByType(string type)
+    {
+        if (projectilePools.TryGetValue(type, out var pool))
+        {
+            return pool.Get();
+        }
+
+        Debug.LogError($"No pool found for projectile type: {type}");
+        return null;
+    }
+
+    public void ReleasePooledObject(GameObject projectile)
+    {
+        var projectileComponent = projectile.GetComponent<IProjectile>() ?? projectile.GetComponentInChildren<IProjectile>(true);
+        if (projectileComponent != null && projectilePools.TryGetValue(projectileComponent.Type, out var pool))
+        {
+            pool.Release(projectile);
+        }
+        else
+        {
+            Debug.LogError($"Attempted to release unmanaged projectile or projectile without IProjectile component: {projectile.name}");
+        }
+    }
 }

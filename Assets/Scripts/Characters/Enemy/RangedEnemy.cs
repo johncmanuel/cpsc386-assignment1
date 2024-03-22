@@ -1,19 +1,15 @@
 using UnityEngine;
 
-[RequireComponent(typeof(ProjectileManager))]
 public class RangedEnemy : BaseEnemy
 {
-    private ProjectileManager projectileManager;
-
-    private void Awake()
+    private new void Start()
     {
-        projectileManager = GetComponent<ProjectileManager>();
+        base.Start();
     }
 
     public override void Attack()
     {
-        // Implement range-specific attack logic here
+        weaponManager.AttackWithCurrentWeapon();
         Debug.Log("Ranged Enemy Attacks!");
-        projectileManager.SpawnProjectile();
     }
 }
