@@ -8,10 +8,13 @@ public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private float health;
     [SerializeField] private float interactionRadius = 1f;
+    private float maxHealth;
 
     private Rigidbody2D rb;
     private Invulnerability invulnerability;
     private WeaponManager weaponManager;
+
+    [SerializeField] private HealthBar healthBar;
 
     public float Health
     {
@@ -25,6 +28,8 @@ public class Player : MonoBehaviour, IDamageable
         invulnerability = GetComponent<Invulnerability>() ?? GetComponentInChildren<Invulnerability>();
         weaponManager = GetComponent<WeaponManager>() ?? GetComponentInChildren<WeaponManager>();
 
+        maxHealth = Health;
+
         if (rb == null)
             Debug.LogError("Couldn't find required Rigidbody2D component");
 
@@ -33,17 +38,23 @@ public class Player : MonoBehaviour, IDamageable
 
         if (weaponManager == null)
             Debug.LogError("Couldn't find required weaponManager component");
+
+        if (healthBar == null)
+            Debug.LogError("Couldn't find required HealthBar component");
     }
 
     public void TakeDamage(float amount)
     {
         if (invulnerability.IsInvulnerable) return;
 
+        healthBar.UpdateHealthBar(Health / maxHealth);
+
         Health -= amount;
         if (Health <= 0)
         {
             Die();
         }
+
     }
 
     public void Die()
