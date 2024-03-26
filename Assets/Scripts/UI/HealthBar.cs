@@ -13,18 +13,19 @@ public class HealthBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        healthBarImage = GetComponent<Image>();
+        if (!TryGetComponent<Image>(out healthBarImage))
+        {
+            Debug.LogError("HealthBar component must have an Image component");
+        }
 
         if (entity == null)
         {
             Debug.LogError("Entity is not set in the HealthBar component");
-            return;
         }
 
         if (!entity.TryGetComponent<IDamageable>(out var damagable))
         {
             Debug.LogError("Entity does not implement IDamageable");
-            return;
         }
 
         UpdateHealthBar(damagable.Health);
@@ -34,5 +35,4 @@ public class HealthBar : MonoBehaviour
     {
         healthBarImage.fillAmount = Mathf.Clamp01(health);
     }
-
 }
