@@ -1518,6 +1518,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
   m_PrefabInstance: {fileID: 563957844}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &622866194 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1816861615405481544, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+  m_PrefabInstance: {fileID: 547113718}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &653954723
 GameObject:
   m_ObjectHideFlags: 0
@@ -4500,12 +4511,16 @@ PrefabInstance:
       value: 0.08623921
       objectReference: {fileID: 0}
     - target: {fileID: 4531291732449621116, guid: 7ff56eb3ae5748f46b42bfdcb0abddb1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.13021313
+      objectReference: {fileID: 0}
+    - target: {fileID: 4531291732449621116, guid: 7ff56eb3ae5748f46b42bfdcb0abddb1, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.799
       objectReference: {fileID: 0}
     - target: {fileID: 4531291732449621116, guid: 7ff56eb3ae5748f46b42bfdcb0abddb1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.575
+      value: 0.5591
       objectReference: {fileID: 0}
     - target: {fileID: 4531291732449621116, guid: 7ff56eb3ae5748f46b42bfdcb0abddb1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4760,6 +4775,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1924667582}
     m_Modifications:
+    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_Name
+      value: PlayerUI
+      objectReference: {fileID: 0}
     - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.73811543
@@ -4800,10 +4819,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
-      propertyPath: m_Name
-      value: PlayerUI
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4825,6 +4840,10 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 2008315591}
+    - target: {fileID: 4729226516803857821, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
+      propertyPath: weaponEquippedText
+      value: 
+      objectReference: {fileID: 622866194}
     - target: {fileID: 8775680619143844587, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

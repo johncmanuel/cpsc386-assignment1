@@ -82,8 +82,8 @@ public class Player : MonoBehaviour, IDamageable
     public void Die()
     {
         Debug.Log("Player died!");
-        GameManager.Instance.UpdateGameState(GameStateType.PlayerDied);
         GameManager.Instance.SwitchToScene("GameOverMenu");
+        // GameManager.Instance.UpdateGameState(GameStateType.PlayerDied);
     }
 
     public void Attack()

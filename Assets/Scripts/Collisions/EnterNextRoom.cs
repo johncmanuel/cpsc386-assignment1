@@ -26,7 +26,7 @@ public class EnterNextRoom : MonoBehaviour
     {
         if (col.gameObject.CompareTag(Tags.Player))
         {
-            GameManager.Instance.UpdateGameState(GameStateType.LevelCompleted);
+            // GameManager.Instance.UpdateGameState(GameStateType.LevelCompleted);
             gameManager.SwitchToScene(sceneName);
         }
     }
