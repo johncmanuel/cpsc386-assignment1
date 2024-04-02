@@ -29,6 +29,12 @@ public class GameManager : MonoBehaviour
     private int _currentSceneNum = 0;
     private int _totalNumberOfScenes;
 
+    // Track necessary game objects that are not currently active
+    private Dictionary<string, GameObject> _inactiveGameObjects = new Dictionary<string, GameObject>();
+
+    // Track enemies' status throughout the game
+    private Dictionary<string, bool> _enemyStatuses = new Dictionary<string, bool>();
+
     public event Action<GameStateType> OnGameStateChange;
 
     private readonly Dictionary<GameStateType, IGameState> _gameStates = new Dictionary<GameStateType, IGameState>();
@@ -102,8 +108,49 @@ public class GameManager : MonoBehaviour
         return SceneManager.GetActiveScene().buildIndex;
     }
 
+    public void PauseGame()
+    {
+        // Bring up the pause menu
+        // UpdateGameState(GameStateType.LevelPaused);
+        GameObject pauseMenu = GetInactiveGameObject("PauseMenu");
+
+        // I wonder if there's a one liner for this...
+        if (pauseMenu != null && pauseMenu.activeSelf == false)
+        {
+            pauseMenu.SetActive(true);
+        }
+        else
+        {
+            pauseMenu.SetActive(false);
+        }
+    }
+
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void AddInactiveGameObject(string key, GameObject gameObject)
+    {
+        if (_inactiveGameObjects.ContainsKey(key))
+        {
+            Debug.LogWarning($"Key {key} already exists in _inactiveGameObjects. Will overwrite current object.");
+            _inactiveGameObjects[key] = gameObject;
+        }
+        else
+        {
+            _inactiveGameObjects.Add(key, gameObject);
+        }
+    }
+
+    public GameObject GetInactiveGameObject(string key)
+    {
+        if (_inactiveGameObjects.ContainsKey(key))
+        {
+            return _inactiveGameObjects[key];
+        }
+
+        Debug.LogError($"Key {key} does not exist in _inactiveGameObjects.");
+        return null;
     }
 }

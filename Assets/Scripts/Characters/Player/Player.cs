@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using TMPro;
 
@@ -31,8 +30,6 @@ public class Player : MonoBehaviour, IDamageable
         invulnerability = GetComponent<Invulnerability>() ?? GetComponentInChildren<Invulnerability>();
         weaponManager = GetComponent<WeaponManager>() ?? GetComponentInChildren<WeaponManager>();
 
-        maxHealth = Health;
-
         if (rb == null)
             Debug.LogError("Couldn't find required Rigidbody2D component");
 
@@ -48,12 +45,47 @@ public class Player : MonoBehaviour, IDamageable
         if (weaponEquippedText == null)
             Debug.LogError("Couldn't find required weaponEquippedText component");
 
+        // Equip the weapon that the player had equipped before switching scenes
+        // if (PlayerData.PlayerGun != null && PlayerData.PlayerGunObj != null)
+        // {
+        //     Instantiate(PlayerData.PlayerGunObj);
+        //     weaponManager.EquipWeapon(PlayerData.PlayerGun);
+        // }
+
         ChangeWeaponEquippedText();
+    }
+
+    private void Awake()
+    {
+        maxHealth = Health;
+
+        if (PlayerData.PlayerHealth > 0)
+        {
+            Health = PlayerData.PlayerHealth;
+            healthBar.UpdateHealthBar(Health / maxHealth);
+        }
+
+        // Set the player's position to the last position in the scene before switching 
+        // to other scenes
+        // var sceneName = SceneManager.GetActiveScene().name;
+        // if (PlayerData.PlayerPositions.ContainsKey(sceneName))
+        // {
+        //     Debug.Log("Setting player position");
+        //     transform.position = PlayerData.PlayerPositions[sceneName];
+        // }
     }
 
     private void Update()
     {
         ChangeWeaponEquippedText();
+
+        PlayerData.PlayerPosition = transform.position;
+        PlayerData.PlayerHealth = Health;
+        if (weaponManager.CurrentWeapon != null && PlayerData.PlayerGun != null)
+        {
+            PlayerData.PlayerGun = weaponManager.CurrentWeapon;
+            PlayerData.PlayerGunObj = ((MonoBehaviour)weaponManager.CurrentWeapon).gameObject;
+        }
     }
 
     private void ChangeWeaponEquippedText()
@@ -124,4 +156,5 @@ public class Player : MonoBehaviour, IDamageable
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, interactionRadius);
     }
+
 }
