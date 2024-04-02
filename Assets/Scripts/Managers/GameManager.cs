@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 public interface IGameState
@@ -29,7 +31,8 @@ public class GameManager : MonoBehaviour
     private int _currentSceneNum = 0;
     private int _totalNumberOfScenes;
 
-    // Track necessary game objects that are not currently active
+    // Track necessary game objects that are not currently active, such as
+    // UI menus.
     private Dictionary<string, GameObject> _inactiveGameObjects = new Dictionary<string, GameObject>();
 
     // Track enemies' status throughout the game
@@ -53,6 +56,23 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         QualitySettings.vSyncCount = 0;
         InitializeGameStates();
+
+        // Store enemies data
+        var enemies = FindObjectsOfType<BaseEnemy>();
+        foreach (var enemy in enemies)
+        {
+            // TODO: Check saved data to see if enemy is dead
+            // ...
+
+            SetEnemyStatus(enemy.name, true);
+
+            var enemyRoom = enemy.transform.parent.gameObject;
+            if (enemyRoom.name != "Room1")
+            {
+                AddInactiveGameObject(enemy.name, enemy.gameObject);
+                enemy.gameObject.SetActive(false);
+            }
+        }
     }
 
     private void InitializeGameStates()
@@ -103,11 +123,6 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneNum);
     }
 
-    public int GetActiveSceneBuildIndex()
-    {
-        return SceneManager.GetActiveScene().buildIndex;
-    }
-
     public void PauseGame()
     {
         // Bring up the pause menu
@@ -152,5 +167,51 @@ public class GameManager : MonoBehaviour
 
         Debug.LogError($"Key {key} does not exist in _inactiveGameObjects.");
         return null;
+    }
+
+    public void SetEnemyStatus(string key, bool status)
+    {
+        if (_enemyStatuses.ContainsKey(key))
+        {
+            _enemyStatuses[key] = status;
+        }
+        else
+        {
+            _enemyStatuses.Add(key, status);
+        }
+    }
+
+    public bool GetEnemyStatus(string key)
+    {
+        if (_enemyStatuses.ContainsKey(key))
+        {
+            return _enemyStatuses[key];
+        }
+
+        Debug.LogError($"Key {key} does not exist in _enemyStatuses.");
+        return false;
+    }
+
+    public void SpawnEnemies(string roomName)
+    {
+        // Spawn enemies in the room
+        foreach (var inactiveObj in _inactiveGameObjects)
+        {
+            if (!inactiveObj.Value.CompareTag(Tags.Enemy))
+                continue;
+            if (inactiveObj.Value.transform.parent.gameObject.name != roomName)
+                continue;
+            inactiveObj.Value.SetActive(true);
+        }
+    }
+
+    public void CheckAllEnemiesEliminated()
+    {
+        if (!_enemyStatuses.ContainsValue(true))
+        {
+            Debug.Log("All enemies are dead!");
+            // UpdateGameState(GameStateType.LevelCompleted);
+            SwitchToScene("VictoryMenu");
+        }
     }
 }

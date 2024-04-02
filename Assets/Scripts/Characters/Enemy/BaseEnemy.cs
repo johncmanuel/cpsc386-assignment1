@@ -79,6 +79,12 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable, ICombatant
             weaponManager.UnequipCurrentWeapon();
         }
 
+        GameManager.Instance.SetEnemyStatus(gameObject.name, false);
+
+        // For now, check here if all enemies are eliminated
+        // If so, end the game
+        GameManager.Instance.CheckAllEnemiesEliminated();
+
         Destroy(this.gameObject);
     }
 }

@@ -64,15 +64,6 @@ public class Player : MonoBehaviour, IDamageable
             Health = PlayerData.PlayerHealth;
             healthBar.UpdateHealthBar(Health / maxHealth);
         }
-
-        // Set the player's position to the last position in the scene before switching 
-        // to other scenes
-        // var sceneName = SceneManager.GetActiveScene().name;
-        // if (PlayerData.PlayerPositions.ContainsKey(sceneName))
-        // {
-        //     Debug.Log("Setting player position");
-        //     transform.position = PlayerData.PlayerPositions[sceneName];
-        // }
     }
 
     private void Update()
