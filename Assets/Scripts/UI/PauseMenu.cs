@@ -4,19 +4,11 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-    private GameManager gameManager;
+
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameManager.Instance;
-
-        if (gameManager == null)
-        {
-            Debug.LogError("Game Manager is null");
-            return;
-        }
-
-        gameManager.AddInactiveGameObject("PauseMenu", gameObject);
+        GameManager.Instance.AddInactiveGameObject("PauseMenu", gameObject);
         gameObject.SetActive(false);
     }
 
@@ -29,7 +21,7 @@ public class PauseMenu : MonoBehaviour
     public void ExitGame()
     {
         // Go to the Main Menu
-        gameManager.SwitchToScene("MainMenu");
+        GameManager.Instance.SwitchToScene("MainMenu");
     }
 
     public void SaveGame()
