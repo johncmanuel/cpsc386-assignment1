@@ -53,9 +53,28 @@ public class Player : MonoBehaviour, IDamageable
         // }
 
         ChangeWeaponEquippedText();
+        UpdateHealth();
     }
 
-    private void Awake()
+    private void Update()
+    {
+        ChangeWeaponEquippedText();
+        SavePlayerDataToMemory();
+    }
+
+    // Save and track player data in memory throughout the game
+    private void SavePlayerDataToMemory()
+    {
+        PlayerData.PlayerPosition = transform.position;
+        PlayerData.PlayerHealth = Health;
+        if (weaponManager.CurrentWeapon != null && PlayerData.PlayerGun != null)
+        {
+            PlayerData.PlayerGun = weaponManager.CurrentWeapon;
+            PlayerData.PlayerGunObj = ((MonoBehaviour)weaponManager.CurrentWeapon).gameObject;
+        }
+    }
+
+    private void UpdateHealth()
     {
         maxHealth = Health;
 
@@ -63,19 +82,6 @@ public class Player : MonoBehaviour, IDamageable
         {
             Health = PlayerData.PlayerHealth;
             healthBar.UpdateHealthBar(Health / maxHealth);
-        }
-    }
-
-    private void Update()
-    {
-        ChangeWeaponEquippedText();
-
-        PlayerData.PlayerPosition = transform.position;
-        PlayerData.PlayerHealth = Health;
-        if (weaponManager.CurrentWeapon != null && PlayerData.PlayerGun != null)
-        {
-            PlayerData.PlayerGun = weaponManager.CurrentWeapon;
-            PlayerData.PlayerGunObj = ((MonoBehaviour)weaponManager.CurrentWeapon).gameObject;
         }
     }
 
@@ -92,14 +98,14 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (invulnerability.IsInvulnerable) return;
 
+        Health -= amount;
+
         healthBar.UpdateHealthBar(Health / maxHealth);
 
-        Health -= amount;
         if (Health <= 0)
         {
             Die();
         }
-
     }
 
     public void Die()
@@ -147,5 +153,4 @@ public class Player : MonoBehaviour, IDamageable
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, interactionRadius);
     }
-
 }

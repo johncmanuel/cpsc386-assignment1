@@ -17,7 +17,7 @@ public class RoomTarget : MonoBehaviour
         {
             Debug.Log("Spawning enemies in: " + roomName);
             // Spawn enemies in the room
-            GameManager.Instance.SpawnEnemies(roomName);
+            EnemyManager.Instance.SpawnEnemies(roomName);
         }
     }
 }
