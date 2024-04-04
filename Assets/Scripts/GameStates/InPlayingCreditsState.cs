@@ -10,5 +10,7 @@ internal class InPlayingCreditsState : IGameState
     public void OnExit(GameManager manager)
     {
         Debug.Log("Exiting Credits State");
+        manager.TriggerSceneTransition();
+
     }
 }

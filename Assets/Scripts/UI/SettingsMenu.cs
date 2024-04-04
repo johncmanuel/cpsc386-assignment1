@@ -8,7 +8,7 @@ public class SettingsMenu : MonoBehaviour
 {
     [SerializeField] private AudioMixer mainAudioMixer;
     [SerializeField] private Slider masterVolumeSlider;
-    private const float DefaultVolume = -25f;
+    private const float DefaultVolume = -15f;
 
     // Start off as active, then deactivate after loading volume values from Prefs
     private void Start()

@@ -13,5 +13,6 @@ internal class InMainMenuState : IGameState
     {
         Debug.Log("Stopping main menu music");
         AudioManager.Instance.FadeOut(VolumeNames.MainMenuMusicName, 0.5f);
+        manager.TriggerSceneTransition();
     }
 }

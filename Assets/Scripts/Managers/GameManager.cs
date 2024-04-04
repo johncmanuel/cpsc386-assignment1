@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     private int _currentSceneNum = 0;
     private int _totalNumberOfScenes;
 
+    private SceneTransition sceneTransition;
+
     // Track necessary game objects that are not currently active, such as
     // UI menus.
     private Dictionary<string, GameObject> _inactiveGameObjects = new Dictionary<string, GameObject>();
@@ -57,6 +59,21 @@ public class GameManager : MonoBehaviour
         InitializeGameStates();
 
         SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void Start()
+    {
+        sceneTransition = FindObjectOfType<SceneTransition>();
+
+        if (sceneTransition == null)
+        {
+            Debug.LogWarning("SceneTransition is null");
+        }
+    }
+
+    public void TriggerSceneTransition()
+    {
+        StartCoroutine(sceneTransition.TriggerTransition());
     }
 
     private void OnDisable()
