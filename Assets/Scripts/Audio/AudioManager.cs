@@ -37,6 +37,19 @@ public class AudioManager : MonoBehaviour, ISoundPlayer, ISoundAdjuster
         }
     }
 
+    public bool isPlaying(string soundName)
+    {
+        if (soundDictionary.TryGetValue(soundName, out AudioSource source))
+        {
+            return source.isPlaying;
+        }
+        else
+        {
+            Debug.LogError($"Sound {soundName} not found");
+            return false;
+        }
+    }
+
     public void Play(string soundName)
     {
         if (soundDictionary.TryGetValue(soundName, out AudioSource source))

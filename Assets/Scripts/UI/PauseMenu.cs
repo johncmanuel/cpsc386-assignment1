@@ -4,17 +4,10 @@ using UnityEngine;
 
 public class PauseMenu : MonoBehaviour
 {
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        GameManager.Instance.AddInactiveGameObject("PauseMenu", gameObject);
-        gameObject.SetActive(false);
-    }
-
     public void ResumeGame()
     {
         // Set the pause menu to inactive
+        Time.timeScale = 1f;
         gameObject.SetActive(false);
     }
 
@@ -27,5 +20,10 @@ public class PauseMenu : MonoBehaviour
     public void SaveGame()
     {
         // Save the game
+    }
+
+    public void Settings()
+    {
+        // Go to the settings menu
     }
 }

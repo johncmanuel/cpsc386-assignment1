@@ -114,17 +114,19 @@ public class GameManager : MonoBehaviour
 
     public void PauseGame()
     {
-        // Bring up the pause menu
         // UpdateGameState(GameStateType.LevelPaused);
-        GameObject pauseMenu = GetInactiveGameObject("PauseMenu");
 
-        // I wonder if there's a one liner for this...
+        // Bring up the pause menu
+        var pauseMenu = FindObjectOfType<PauseMenu>(includeInactive: true).gameObject;
+
         if (pauseMenu != null && pauseMenu.activeSelf == false)
         {
+            Time.timeScale = 1f - Time.timeScale;
             pauseMenu.SetActive(true);
         }
         else
         {
+            Time.timeScale = 1f;
             pauseMenu.SetActive(false);
         }
     }

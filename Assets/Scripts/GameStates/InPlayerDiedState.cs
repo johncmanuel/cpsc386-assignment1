@@ -1,12 +1,14 @@
-﻿internal class InPlayerDiedState : IGameState
+﻿using UnityEngine;
+
+internal class InPlayerDiedState : IGameState
 {
     public void OnEnter(GameManager manager)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Entering Player Died State");
     }
 
     public void OnExit(GameManager manager)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Exiting Player Died State");
     }
 }

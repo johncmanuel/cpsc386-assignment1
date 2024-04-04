@@ -1,12 +1,17 @@
-﻿internal class InPlayingLevelState : IGameState
+﻿using UnityEngine;
+
+internal class InPlayingLevelState : IGameState
 {
     public void OnEnter(GameManager manager)
     {
-        throw new System.NotImplementedException();
+        if (AudioManager.Instance.isPlaying(VolumeNames.PlayingLevelMusicName)) return;
+        Debug.Log("Playing level music");
+        AudioManager.Instance.Play(VolumeNames.PlayingLevelMusicName);
     }
 
     public void OnExit(GameManager manager)
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Stopping level music");
+        AudioManager.Instance.FadeOut(VolumeNames.PlayingLevelMusicName, 0.5f);
     }
 }
