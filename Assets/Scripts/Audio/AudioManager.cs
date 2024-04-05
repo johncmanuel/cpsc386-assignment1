@@ -39,39 +39,34 @@ public class AudioManager : MonoBehaviour, ISoundPlayer, ISoundAdjuster
 
     public bool isPlaying(string soundName)
     {
-        if (soundDictionary.TryGetValue(soundName, out AudioSource source))
-        {
-            return source.isPlaying;
-        }
-        else
+        if (!soundDictionary.TryGetValue(soundName, out AudioSource source))
         {
             Debug.LogError($"Sound {soundName} not found");
             return false;
         }
+        return source.isPlaying;
     }
 
     public void Play(string soundName)
     {
-        if (soundDictionary.TryGetValue(soundName, out AudioSource source))
-        {
-            source.Play();
-        }
-        else
+        if (!soundDictionary.TryGetValue(soundName, out AudioSource source))
         {
             Debug.LogError($"Sound {soundName} not found");
+            return;
         }
+
+        source.Play();
     }
 
     public void FadeOut(string soundName, float duration)
     {
-        if (soundDictionary.TryGetValue(soundName, out AudioSource source))
-        {
-            StartCoroutine(FadeOutRoutine(source, duration));
-        }
-        else
+        if (!soundDictionary.TryGetValue(soundName, out AudioSource source))
         {
             Debug.LogError($"Sound {soundName} not found");
+            return;
         }
+
+        StartCoroutine(FadeOutRoutine(source, duration));
     }
 
     private IEnumerator FadeOutRoutine(AudioSource source, float duration)
