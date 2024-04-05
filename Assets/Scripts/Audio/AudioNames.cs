@@ -1,5 +1,5 @@
 
-public static class VolumeNames
+public static class AudioNames
 {
     // Audio mixer group names 
     public const string MasterVolume = "MasterVolume";
