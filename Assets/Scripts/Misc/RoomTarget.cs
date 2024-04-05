@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+// Mainly used for spawning enemies in a room when the player enters it
 public class RoomTarget : MonoBehaviour
 {
     private string roomName;
 
     private void Start()
     {
+        // Assumes that the parent of the RoomTarget 
+        // is game object with the name of the room
         roomName = gameObject.transform.parent.name;
     }
 
@@ -16,7 +20,6 @@ public class RoomTarget : MonoBehaviour
         if (col.gameObject.CompareTag(Tags.Player))
         {
             Debug.Log("Spawning enemies in: " + roomName);
-            // Spawn enemies in the room
             EnemyManager.Instance.SpawnEnemies(roomName);
         }
     }
