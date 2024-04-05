@@ -1,9 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
 public interface IGameState
@@ -57,8 +54,6 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         QualitySettings.vSyncCount = 0;
         InitializeGameStates();
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void Start()
@@ -67,18 +62,14 @@ public class GameManager : MonoBehaviour
 
         if (sceneTransition == null)
         {
-            Debug.LogWarning("SceneTransition is null");
+            Debug.LogError("SceneTransition is null");
         }
     }
 
     public void TriggerSceneTransition()
     {
+        Debug.Log("Triggering scene transition");
         StartCoroutine(sceneTransition.TriggerTransition());
-    }
-
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void InitializeGameStates()
@@ -138,14 +129,24 @@ public class GameManager : MonoBehaviour
 
         if (pauseMenu != null && pauseMenu.activeSelf == false)
         {
-            Time.timeScale = 1f - Time.timeScale;
+            PauseTime();
             pauseMenu.SetActive(true);
         }
         else
         {
-            Time.timeScale = 1f;
+            ResumeTime();
             pauseMenu.SetActive(false);
         }
+    }
+
+    public void ResumeTime()
+    {
+        Time.timeScale = 1f;
+    }
+
+    public void PauseTime()
+    {
+        Time.timeScale = 1f - Time.timeScale;
     }
 
     public void QuitGame()
@@ -180,18 +181,5 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, GameObject> GetInactiveGameObjs()
     {
         return _inactiveGameObjects;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        string[] menuSceneNames = { "VictoryMenu", "GameOverMenu", "MainMenu" };
-        if (menuSceneNames.Contains(scene.name))
-        {
-            // Reset player data
-            PlayerData.PlayerHealth = 0;
-            PlayerData.PlayerGun = null;
-            PlayerData.PlayerGunObj = null;
-            PlayerData.PlayerPosition = Vector3.zero;
-        }
     }
 }

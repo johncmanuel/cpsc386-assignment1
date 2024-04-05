@@ -4,15 +4,17 @@ internal class InMainMenuState : IGameState
 {
     public void OnEnter(GameManager manager)
     {
-        if (AudioManager.Instance.isPlaying(VolumeNames.MainMenuMusicName)) return;
+        if (AudioManager.Instance.isPlaying(AudioNames.MainMenuMusicName)) return;
         Debug.Log("Playing main menu music");
-        AudioManager.Instance.Play(VolumeNames.MainMenuMusicName);
+        AudioManager.Instance.Play(AudioNames.MainMenuMusicName);
+
+        PlayerData.ResetPlayerData();
     }
 
     public void OnExit(GameManager manager)
     {
         Debug.Log("Stopping main menu music");
-        AudioManager.Instance.FadeOut(VolumeNames.MainMenuMusicName, 0.5f);
+        AudioManager.Instance.FadeOut(AudioNames.MainMenuMusicName, 0.5f);
         manager.TriggerSceneTransition();
     }
 }

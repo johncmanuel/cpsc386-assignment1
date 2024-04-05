@@ -26,16 +26,16 @@ public class SettingsMenu : MonoBehaviour
 
     private void InitializeVolume()
     {
-        float masterVolumePrefs = PlayerPrefs.GetFloat(VolumeNames.MasterVolume);
+        float masterVolumePrefs = PlayerPrefs.GetFloat(AudioNames.MasterVolume);
         if (masterVolumePrefs == -1f)
         {
             Debug.Log("Master volume not found in prefs, setting to default");
-            mainAudioMixer.SetFloat(VolumeNames.MasterVolume, DefaultVolume);
+            mainAudioMixer.SetFloat(AudioNames.MasterVolume, DefaultVolume);
         }
         else
         {
             Debug.Log("Master volume found in prefs, setting to " + masterVolumePrefs);
-            mainAudioMixer.SetFloat(VolumeNames.MasterVolume, masterVolumePrefs);
+            mainAudioMixer.SetFloat(AudioNames.MasterVolume, masterVolumePrefs);
         }
 
         masterVolumeSlider.value = masterVolumePrefs == -1f ? DefaultVolume : masterVolumePrefs;
@@ -43,8 +43,8 @@ public class SettingsMenu : MonoBehaviour
 
     public void SetMasterVolume(float volume)
     {
-        mainAudioMixer.SetFloat(VolumeNames.MasterVolume, volume);
-        PlayerPrefs.SetFloat(VolumeNames.MasterVolume, volume);
+        mainAudioMixer.SetFloat(AudioNames.MasterVolume, volume);
+        PlayerPrefs.SetFloat(AudioNames.MasterVolume, volume);
         PlayerPrefs.Save();
     }
 }
