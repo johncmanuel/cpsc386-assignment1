@@ -510,6 +510,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2188487432697391211, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_text
+      value: 'Controls:
+
+        1. Shoot: Mouse0
+
+        2. Dash: Space
+
+        3.
+        Interact: E
+
+        4. Movement: WASD
+
+        5. Pause: Esc'
+      objectReference: {fileID: 0}
     - target: {fileID: 2623992710506902910, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -594,6 +609,26 @@ PrefabInstance:
       propertyPath: entity
       value: 
       objectReference: {fileID: 9178318429593657674}
+    - target: {fileID: 4199518871626726322, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -146
+      objectReference: {fileID: 0}
+    - target: {fileID: 4199518871626726322, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 79
+      objectReference: {fileID: 0}
+    - target: {fileID: 5454304053034703075, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -22.800049
+      objectReference: {fileID: 0}
+    - target: {fileID: 6630471402448793023, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.325
+      objectReference: {fileID: 0}
+    - target: {fileID: 6630471402448793023, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.375
+      objectReference: {fileID: 0}
     - target: {fileID: 7184890520803283793, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
       propertyPath: m_UiScaleMode
       value: 0

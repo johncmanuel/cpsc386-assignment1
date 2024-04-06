@@ -4,8 +4,8 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Created once the player enters the first level of the game:
-// Dungeon1
+
+// Created once the player enters the first level of the game
 public class EnemyManager : MonoBehaviour
 {
     public static EnemyManager Instance { get; private set; }
@@ -25,8 +25,6 @@ public class EnemyManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void Start()
@@ -64,6 +62,11 @@ public class EnemyManager : MonoBehaviour
         {
             Debug.LogError("No enemies found in the scene.");
         }
+
+        foreach (var enemy in _enemyStatuses)
+        {
+            Debug.Log("Enemy: " + enemy.Key + " Status: " + enemy.Value);
+        }
     }
 
     public void SetEnemyStatus(string key, bool status)
@@ -94,6 +97,8 @@ public class EnemyManager : MonoBehaviour
         // Spawn enemies in the room
         foreach (var inactiveObj in GameManager.Instance.GetInactiveGameObjs())
         {
+            if (inactiveObj.Value == null)
+                continue;
             if (!inactiveObj.Value.CompareTag(Tags.Enemy))
                 continue;
             if (inactiveObj.Value.transform.parent.gameObject.name != roomName)
@@ -115,10 +120,4 @@ public class EnemyManager : MonoBehaviour
             GameManager.Instance.SwitchToScene("VictoryMenu");
         }
     }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // TODO: Update enemy count based on new scenes
-    }
-
 }
