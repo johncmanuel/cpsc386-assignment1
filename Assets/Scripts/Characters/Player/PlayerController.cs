@@ -59,5 +59,9 @@ public class PlayerController : MonoBehaviour
         {
             player.InteractWithNearestInteractable();
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.Instance.PauseGame();
+        }
     }
 }

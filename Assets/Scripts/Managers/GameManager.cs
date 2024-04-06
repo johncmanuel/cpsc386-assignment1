@@ -29,6 +29,12 @@ public class GameManager : MonoBehaviour
     private int _currentSceneNum = 0;
     private int _totalNumberOfScenes;
 
+    private SceneTransition sceneTransition;
+
+    // Track necessary game objects that are not currently active, such as
+    // UI menus.
+    private Dictionary<string, GameObject> _inactiveGameObjects = new Dictionary<string, GameObject>();
+
     public event Action<GameStateType> OnGameStateChange;
 
     private readonly Dictionary<GameStateType, IGameState> _gameStates = new Dictionary<GameStateType, IGameState>();
@@ -37,6 +43,7 @@ public class GameManager : MonoBehaviour
     {
         if (Instance != null)
         {
+            Debug.LogWarning("Destroying duplicate GameManager instance...");
             Destroy(gameObject);
             return;
         }
@@ -47,6 +54,22 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         QualitySettings.vSyncCount = 0;
         InitializeGameStates();
+    }
+
+    private void Start()
+    {
+        sceneTransition = FindObjectOfType<SceneTransition>();
+
+        if (sceneTransition == null)
+        {
+            Debug.LogError("SceneTransition is null");
+        }
+    }
+
+    public void TriggerSceneTransition()
+    {
+        Debug.Log("Triggering scene transition");
+        StartCoroutine(sceneTransition.TriggerTransition());
     }
 
     private void InitializeGameStates()
@@ -97,13 +120,66 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(sceneNum);
     }
 
-    public int GetActiveSceneBuildIndex()
+    public void PauseGame()
     {
-        return SceneManager.GetActiveScene().buildIndex;
+        // UpdateGameState(GameStateType.LevelPaused);
+
+        // Bring up the pause menu
+        var pauseMenu = FindObjectOfType<PauseMenu>(includeInactive: true).gameObject;
+
+        if (pauseMenu != null && pauseMenu.activeSelf == false)
+        {
+            PauseTime();
+            pauseMenu.SetActive(true);
+        }
+        else
+        {
+            ResumeTime();
+            pauseMenu.SetActive(false);
+        }
+    }
+
+    public void ResumeTime()
+    {
+        Time.timeScale = 1f;
+    }
+
+    public void PauseTime()
+    {
+        Time.timeScale = 1f - Time.timeScale;
     }
 
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void AddInactiveGameObject(string key, GameObject gameObject)
+    {
+        if (_inactiveGameObjects.ContainsKey(key))
+        {
+            Debug.LogWarning($"Key {key} already exists in _inactiveGameObjects. Will overwrite current object.");
+            _inactiveGameObjects[key] = gameObject;
+        }
+        else
+        {
+            _inactiveGameObjects.Add(key, gameObject);
+        }
+    }
+
+    public GameObject GetInactiveGameObject(string key)
+    {
+        if (_inactiveGameObjects.ContainsKey(key))
+        {
+            return _inactiveGameObjects[key];
+        }
+
+        Debug.LogError($"Key {key} does not exist in _inactiveGameObjects.");
+        return null;
+    }
+
+    public Dictionary<string, GameObject> GetInactiveGameObjs()
+    {
+        return _inactiveGameObjects;
     }
 }

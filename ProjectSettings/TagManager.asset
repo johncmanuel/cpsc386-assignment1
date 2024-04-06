@@ -9,6 +9,7 @@ TagManager:
   - TriggerNextScene
   - Obstacle
   - Weapon
+  - VolumeBar
   layers:
   - Default
   - TransparentFX

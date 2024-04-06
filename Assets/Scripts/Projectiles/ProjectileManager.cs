@@ -13,6 +13,7 @@ public class ProjectileManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
+            Debug.LogWarning("Destroying duplicate ProjectileManager instance...");
             Destroy(gameObject);
         }
         else

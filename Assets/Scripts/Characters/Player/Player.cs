@@ -1,5 +1,5 @@
-using System.Collections;
 using UnityEngine;
+using TMPro;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Invulnerability))]
@@ -13,6 +13,8 @@ public class Player : MonoBehaviour, IDamageable
     private Rigidbody2D rb;
     private Invulnerability invulnerability;
     private WeaponManager weaponManager;
+
+    [SerializeField] private TMP_Text weaponEquippedText;
 
     [SerializeField] private HealthBar healthBar;
 
@@ -28,8 +30,6 @@ public class Player : MonoBehaviour, IDamageable
         invulnerability = GetComponent<Invulnerability>() ?? GetComponentInChildren<Invulnerability>();
         weaponManager = GetComponent<WeaponManager>() ?? GetComponentInChildren<WeaponManager>();
 
-        maxHealth = Health;
-
         if (rb == null)
             Debug.LogError("Couldn't find required Rigidbody2D component");
 
@@ -41,26 +41,78 @@ public class Player : MonoBehaviour, IDamageable
 
         if (healthBar == null)
             Debug.LogError("Couldn't find required HealthBar component");
+
+        if (weaponEquippedText == null)
+            Debug.LogError("Couldn't find required weaponEquippedText component");
+
+        // Equip the weapon that the player had equipped before switching scenes
+        // if (PlayerData.PlayerGun != null && PlayerData.PlayerGunObj != null)
+        // {
+        //     Instantiate(PlayerData.PlayerGunObj);
+        //     weaponManager.EquipWeapon(PlayerData.PlayerGun);
+        // }
+
+        ChangeWeaponEquippedText();
+        UpdateHealth();
+    }
+
+    private void Update()
+    {
+        ChangeWeaponEquippedText();
+        SavePlayerDataToMemory();
+    }
+
+    // Save and track player data in memory throughout the game
+    private void SavePlayerDataToMemory()
+    {
+        PlayerData.PlayerPosition = transform.position;
+        PlayerData.PlayerHealth = Health;
+        if (weaponManager.CurrentWeapon != null && PlayerData.PlayerGun != null)
+        {
+            PlayerData.PlayerGun = weaponManager.CurrentWeapon;
+            PlayerData.PlayerGunObj = ((MonoBehaviour)weaponManager.CurrentWeapon).gameObject;
+        }
+    }
+
+    private void UpdateHealth()
+    {
+        maxHealth = Health;
+
+        if (PlayerData.PlayerHealth > 0)
+        {
+            Health = PlayerData.PlayerHealth;
+            healthBar.UpdateHealthBar(Health / maxHealth);
+        }
+    }
+
+    private void ChangeWeaponEquippedText()
+    {
+        // Update the weapon equipped text if anything changed
+        if (weaponManager.CurrentWeapon == null)
+            weaponEquippedText.text = "Weapon Equipped: None";
+        else
+            weaponEquippedText.text = "Weapon Equipped: " + weaponManager.CurrentWeapon.ToString();
     }
 
     public void TakeDamage(float amount)
     {
         if (invulnerability.IsInvulnerable) return;
 
+        Health -= amount;
+
         healthBar.UpdateHealthBar(Health / maxHealth);
 
-        Health -= amount;
         if (Health <= 0)
         {
             Die();
         }
-
     }
 
     public void Die()
     {
         Debug.Log("Player died!");
-        GameManager.Instance.UpdateGameState(GameStateType.PlayerDied);
+        GameManager.Instance.SwitchToScene("GameOverMenu");
+        // GameManager.Instance.UpdateGameState(GameStateType.PlayerDied);
     }
 
     public void Attack()
