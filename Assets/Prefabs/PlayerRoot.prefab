@@ -525,6 +525,18 @@ PrefabInstance:
 
         5. Pause: Esc'
       objectReference: {fileID: 0}
+    - target: {fileID: 2188487432697391211, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_fontSize
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188487432697391211, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2188487432697391211, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2623992710506902910, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -610,16 +622,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9178318429593657674}
     - target: {fileID: 4199518871626726322, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 183.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4199518871626726322, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 60.086
+      objectReference: {fileID: 0}
+    - target: {fileID: 4199518871626726322, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -146
+      value: -84.11
       objectReference: {fileID: 0}
     - target: {fileID: 4199518871626726322, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 79
+      value: 30.043
       objectReference: {fileID: 0}
     - target: {fileID: 5454304053034703075, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -22.800049
+      objectReference: {fileID: 0}
+    - target: {fileID: 6630471402448793023, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 140.8139
+      objectReference: {fileID: 0}
+    - target: {fileID: 6630471402448793023, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 65.0162
       objectReference: {fileID: 0}
     - target: {fileID: 6630471402448793023, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
       propertyPath: m_LocalScale.x
@@ -631,7 +659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7184890520803283793, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
       propertyPath: m_UiScaleMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -65,13 +65,13 @@ public class Player : MonoBehaviour, IDamageable
     // Save and track player data in memory throughout the game
     private void SavePlayerDataToMemory()
     {
-        PlayerData.PlayerPosition = transform.position;
-        PlayerData.PlayerHealth = Health;
-        if (weaponManager.CurrentWeapon != null && PlayerData.PlayerGun != null)
-        {
-            PlayerData.PlayerGun = weaponManager.CurrentWeapon;
-            PlayerData.PlayerGunObj = ((MonoBehaviour)weaponManager.CurrentWeapon).gameObject;
-        }
+        // PlayerData.PlayerPosition = transform.position;
+        // PlayerData.PlayerHealth = Health;
+        // if (weaponManager.CurrentWeapon != null && PlayerData.PlayerGun != null)
+        // {
+        //     PlayerData.PlayerGun = weaponManager.CurrentWeapon;
+        //     PlayerData.PlayerGunObj = ((MonoBehaviour)weaponManager.CurrentWeapon).gameObject;
+        // }
     }
 
     private void UpdateHealth()

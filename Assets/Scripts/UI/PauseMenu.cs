@@ -7,13 +7,19 @@ public class PauseMenu : MonoBehaviour
     public void ResumeGame()
     {
         // Set the pause menu to inactive
-        Time.timeScale = 1f;
+        GameManager.Instance.ResumeTime();
         gameObject.SetActive(false);
     }
 
-    public void ExitGame()
+    public void QuitGame()
     {
-        // Go to the Main Menu
+        GameManager.Instance.ResumeTime();
+        GameManager.Instance.QuitGame();
+    }
+
+    public void GoToMainMenu()
+    {
+        GameManager.Instance.ResumeTime();
         GameManager.Instance.SwitchToScene("MainMenu");
     }
 
