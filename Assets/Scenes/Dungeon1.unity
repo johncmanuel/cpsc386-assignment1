@@ -208,6 +208,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 544887932}
     m_Modifications:
+    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_Name
+      value: PlayerUI
+      objectReference: {fileID: 0}
     - target: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (4)
@@ -256,10 +260,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
-      propertyPath: m_Name
-      value: PlayerUI
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -273,6 +273,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 544887932}
     m_Modifications:
+    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_Name
+      value: PlayerUI
+      objectReference: {fileID: 0}
     - target: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (7)
@@ -320,10 +324,6 @@ PrefabInstance:
     - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
-      propertyPath: m_Name
-      value: PlayerUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8086,6 +8086,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 544887932}
     m_Modifications:
+    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_Name
+      value: PlayerUI
+      objectReference: {fileID: 0}
     - target: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (6)
@@ -8133,10 +8137,6 @@ PrefabInstance:
     - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
-      propertyPath: m_Name
-      value: PlayerUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -8370,6 +8370,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 544887932}
     m_Modifications:
+    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_Name
+      value: PlayerUI
+      objectReference: {fileID: 0}
     - target: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (8)
@@ -8417,10 +8421,6 @@ PrefabInstance:
     - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
-      propertyPath: m_Name
-      value: PlayerUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -48905,6 +48905,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 544887932}
     m_Modifications:
+    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_Name
+      value: PlayerUI
+      objectReference: {fileID: 0}
     - target: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (9)
@@ -48952,10 +48956,6 @@ PrefabInstance:
     - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
-      propertyPath: m_Name
-      value: PlayerUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -49124,6 +49124,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 544887932}
     m_Modifications:
+    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_Name
+      value: PlayerUI
+      objectReference: {fileID: 0}
     - target: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (10)
@@ -49171,10 +49175,6 @@ PrefabInstance:
     - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
-      propertyPath: m_Name
-      value: PlayerUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -49564,6 +49564,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 544887932}
     m_Modifications:
+    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
+      propertyPath: m_Name
+      value: PlayerUI
+      objectReference: {fileID: 0}
     - target: {fileID: 890048543646763349, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_Name
       value: RangedEnemy (5)
@@ -49611,10 +49615,6 @@ PrefabInstance:
     - target: {fileID: 4061768724572170185, guid: 7654c1bced99d0e4eabb23771a26d6cf, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 221881729619348906, guid: 4a484403e08717a4399708a9e8228d9a, type: 3}
-      propertyPath: m_Name
-      value: PlayerUI
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -50368,7 +50368,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6498276473203425407, guid: f4aa0c7279b0a7f47882bd75fafd9f9d, type: 3}
       propertyPath: newGameStateType
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7030636032856792992, guid: f4aa0c7279b0a7f47882bd75fafd9f9d, type: 3}
       propertyPath: m_Name
@@ -50532,6 +50532,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3096120375880578087, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
+      propertyPath: dashCooldownDuration
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3435062962696429357, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
       propertyPath: m_Name
       value: PlayerRoot

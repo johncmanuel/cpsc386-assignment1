@@ -4,14 +4,18 @@ using UnityEngine;
 [RequireComponent(typeof(Invulnerability))]
 public class DashMovement : MonoBehaviour, IMovementContribution
 {
-    [SerializeField] private const float dashDuration = 0.2f;
+    [SerializeField] private float dashDuration = 0.2f;
     [SerializeField] private float dashStrength = 20f;
-    
+    [SerializeField] private float dashCooldownDuration = 0.2f;
+
     private bool isDashing = false;
+    private bool isOnCooldown = false;
+
     private Vector2 dashDirection = Vector2.zero;
 
     [SerializeField] private Invulnerability invulnerability;
     [SerializeField] private MovementManager movementManager;
+
 
     void Start()
     {
@@ -57,10 +61,12 @@ public class DashMovement : MonoBehaviour, IMovementContribution
 
     public void PerformDash(Vector2 direction)
     {
+        if (isOnCooldown)
+            return;
+
         if (!isDashing)
         {
             dashDirection = direction;
-            isDashing = true;
             invulnerability.BecomeInvulnerable();
             StartCoroutine(DashDuration());
         }
@@ -68,7 +74,12 @@ public class DashMovement : MonoBehaviour, IMovementContribution
 
     private IEnumerator DashDuration()
     {
+        isDashing = true;
         yield return new WaitForSeconds(dashDuration);
         isDashing = false;
+
+        isOnCooldown = true;
+        yield return new WaitForSeconds(dashCooldownDuration);
+        isOnCooldown = false;
     }
 }
