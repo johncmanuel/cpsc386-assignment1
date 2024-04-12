@@ -14,7 +14,11 @@ public class ProjectileHitbox : MonoBehaviour
             // Always check for the Projectile tag
             var projectile = collision.gameObject.GetComponent<IProjectile>();
 
-            if (projectile == null) continue;
+            if (projectile == null)
+            {
+                Debug.LogError("Could not find IProjectile component");
+                continue;
+            }
 
             projectile.OnHitTarget(gameObject);
         }
