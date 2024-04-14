@@ -6,8 +6,6 @@ using UnityEngine;
 [RequireComponent(typeof(DashMovement))]
 public class PlayerController : MonoBehaviour
 {
-    [SerializeField] private float interactionRadius = 1f;
-
     private Player player;
     private Vector2 movementInput;
     private BasicMovement basicMovement;
@@ -57,7 +55,7 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
-            player.InteractWithNearestInteractable();
+            player.TryInteract();
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {

@@ -120,7 +120,7 @@ public class Player : MonoBehaviour, IDamageable
         weaponManager.AttackWithCurrentWeapon();
     }
 
-    public void InteractWithNearestInteractable()
+    public void TryInteract()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, interactionRadius);
 
