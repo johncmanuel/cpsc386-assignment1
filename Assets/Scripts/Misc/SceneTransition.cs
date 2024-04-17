@@ -25,7 +25,7 @@ public class SceneTransition : MonoBehaviour
     private void Start()
     {
         if (animator == null)
-            Debug.Log("Animator is null;");
+            Debug.Log("Animator is null");
     }
 
     public IEnumerator TriggerTransition()

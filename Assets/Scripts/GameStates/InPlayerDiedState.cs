@@ -6,6 +6,7 @@ internal class InPlayerDiedState : IGameState
     {
         Debug.Log("Entering Player Died State");
         PlayerData.ResetPlayerData();
+        manager.SwitchToScene("GameOverMenu");
     }
 
     public void OnExit(GameManager manager)
