@@ -288,7 +288,7 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1425620111}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
         m_MethodName: SetMasterVolume
         m_Mode: 0
@@ -1439,7 +1439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &577828556
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1734,9 +1734,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1425620111}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
-        m_MethodName: SetMasterVolume
+        m_MethodName: SetMusicVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4040,7 +4040,7 @@ GameObject:
   - component: {fileID: 1425620110}
   - component: {fileID: 1425620111}
   m_Layer: 0
-  m_Name: Content
+  m_Name: SettingsMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4081,6 +4081,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainAudioMixer: {fileID: 24100000, guid: 9e805c084991e7a48862303ae2853fd1, type: 2}
   masterVolumeSlider: {fileID: 104286550}
+  musicVolumeSlider: {fileID: 674705864}
+  SFXVolumeSlider: {fileID: 1878295435}
 --- !u!1 &1475845540
 GameObject:
   m_ObjectHideFlags: 0
@@ -4755,7 +4757,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1891044906}
         m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
         m_MethodName: SetActive
         m_Mode: 6
@@ -5309,9 +5311,9 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1425620111}
         m_TargetAssemblyTypeName: SettingsMenu, Assembly-CSharp
-        m_MethodName: SetMasterVolume
+        m_MethodName: SetSFXVolume
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5560,8 +5562,8 @@ RectTransform:
   m_LocalScale: {x: 1.3625, y: 1.3625, z: 1.3625}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1098579055}
   - {fileID: 1995203104}
+  - {fileID: 1098579055}
   - {fileID: 1915762947}
   - {fileID: 1994517015}
   m_Father: {fileID: 1170155948}
@@ -6298,7 +6300,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 889013659}
   m_Direction: 2
   m_Value: 1.0000007
-  m_Size: 0.6638691
+  m_Size: 0.66386914
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
