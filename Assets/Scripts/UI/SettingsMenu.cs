@@ -24,34 +24,18 @@ public class SettingsMenu : MonoBehaviour
         if (masterVolumeSlider == null)
             Debug.LogError("Master volume slider not found");
 
-        InitializeVolume();
+        InitializeVolumeFromPrefs();
 
         // gameObject.SetActive(false);
         var settingsScrollView = GameObject.Find("Settings Scroll View");
         settingsScrollView.SetActive(false);
     }
 
-    // private void OnDisable()
-    // {
-    //     PlayerPrefs.Save();
-    // }
-
-    private void InitializeVolume()
+    private void InitializeVolumeFromPrefs()
     {
-        // float masterVolumePrefs = PlayerPrefs.GetFloat(AudioNames.MasterVolume);
-        // if (masterVolumePrefs == -1f)
-        // {
-        //     Debug.Log("Master volume not found in prefs, setting to default");
-        //     mainAudioMixer.SetFloat(AudioNames.MasterVolume, DefaultVolume);
-        // }
-        // else
-        // {
-        //     Debug.Log("Master volume found in prefs, setting to " + masterVolumePrefs);
-        //     mainAudioMixer.SetFloat(AudioNames.MasterVolume, masterVolumePrefs);
-        // }
-
-        // masterVolumeSlider.value = masterVolumePrefs == -1f ? DefaultVolume : masterVolumePrefs;
         SetVolumeFromPrefs(AudioNames.MasterVolume, masterVolumeSlider);
+        SetVolumeFromPrefs(AudioNames.MusicVolume, musicVolumeSlider);
+        SetVolumeFromPrefs(AudioNames.SFXVolume, SFXVolumeSlider);
     }
 
     private void SetVolumeFromPrefs(string audioName, Slider slider)
