@@ -3,6 +3,6 @@ using UnityEngine;
 public interface IProjectile
 {
     string Type { get; }
-    void OnHitTarget(GameObject hitObject);
+    void OnHitDamageable(IDamageable damageableComponent, float? damageModifier);
     void DestroyProjectile();
 }
