@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -18,7 +20,15 @@ public class SettingsMenu : MonoBehaviour
     // Value in decibels
     private const float DefaultVolume = -15f;
 
-    // Start off as active, then deactivate after loading volume values from Prefs
+    [SerializeField] private TMP_Dropdown resolutionDropdown;
+    private Resolution[] resolutions;
+    private List<Resolution> filteredResolutions;
+
+    private RefreshRate currentRefreshRate;
+    private int currentResolutionIndex = 0;
+
+    // Start off as active, then deactivate after loading volume values from Prefs 
+    // and other values from Prefs
     private void Start()
     {
         if (mainAudioMixer == null)
@@ -34,9 +44,10 @@ public class SettingsMenu : MonoBehaviour
         if (vsyncToggle == null)
             Debug.LogError("Vsync toggle not found");
 
+        InitializeResolutions();
 
         InitializeVolumeFromPrefs();
-        InitializeVisualSettings();
+        InitializeVisualSettingsFromPrefs();
 
         var settingsScrollView = GameObject.Find("Settings Scroll View");
         settingsScrollView.SetActive(false);
@@ -98,10 +109,73 @@ public class SettingsMenu : MonoBehaviour
         return Mathf.Pow(10.0f, decibel / 20.0f);
     }
 
-    private void InitializeVisualSettings()
+    private void InitializeVisualSettingsFromPrefs()
     {
         SetFullScreenFromPrefs();
         SetVsyncFromPrefs();
+        SetResolutionFromPrefs();
+    }
+
+    // Source:
+    // https://www.youtube.com/watch?v=HnvPNoU9Wjw
+    private void InitializeResolutions()
+    {
+        resolutions = Screen.resolutions;
+        filteredResolutions = new List<Resolution>();
+
+        resolutionDropdown.ClearOptions();
+        currentRefreshRate = Screen.currentResolution.refreshRateRatio;
+
+        for (int i = 0; i < resolutions.Length; i++)
+        {
+            if (resolutions[i].refreshRateRatio.value != currentRefreshRate.value) continue;
+            filteredResolutions.Add(resolutions[i]);
+        }
+
+        List<string> options = new List<string>();
+        for (int i = 0; i < filteredResolutions.Count; i++)
+        {
+            // Sometimes, the refresh rate would be a crazy decimal like 60.000038472882 (on my end), 
+            // so round it to the nearest whole number.
+            double refreshRateWholeNum = Math.Round(filteredResolutions[i].refreshRateRatio.value, 0);
+            string resolutionOption = filteredResolutions[i].width + " x " + filteredResolutions[i].height + " @ " +
+                                      refreshRateWholeNum + "Hz";
+            options.Add(resolutionOption);
+
+            if (filteredResolutions[i].width == Screen.currentResolution.width &&
+                filteredResolutions[i].height == Screen.currentResolution.height)
+            {
+                currentResolutionIndex = i;
+            }
+        }
+
+        resolutionDropdown.AddOptions(options);
+        resolutionDropdown.value = currentResolutionIndex;
+        resolutionDropdown.RefreshShownValue();
+    }
+
+    public void SetResolution(int resolutionIndex)
+    {
+        Resolution resolution = filteredResolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode);
+        SaveResolutionPrefs(resolutionIndex);
+    }
+
+    private void SaveResolutionPrefs(int resolutionIndex)
+    {
+        PlayerPrefs.SetInt(PrefsKeys.ResolutionIndex, resolutionIndex);
+        PlayerPrefs.Save();
+        Debug.Log("Saved resolution index as " + resolutionIndex);
+    }
+
+    private void SetResolutionFromPrefs()
+    {
+        int resolutionIndex = PlayerPrefs.GetInt(PrefsKeys.ResolutionIndex, 0);
+        Resolution resolution = filteredResolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreenMode);
+        resolutionDropdown.value = resolutionIndex;
+        resolutionDropdown.RefreshShownValue();
+        Debug.Log("Set resolution to " + resolution.width + " x " + resolution.height);
     }
 
     private void SetFullScreenFromPrefs()
