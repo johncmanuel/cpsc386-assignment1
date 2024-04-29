@@ -8,16 +8,14 @@ public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private float health;
     [SerializeField] private float interactionRadius = 1f;
+    [SerializeField] private TMP_Text weaponEquippedText;
+    [SerializeField] private HealthBar healthBar;
+
     private float maxHealth;
 
     private Rigidbody2D rb;
     private Invulnerability invulnerability;
     private WeaponManager weaponManager;
-
-    [SerializeField] private TMP_Text weaponEquippedText;
-
-    [SerializeField] private HealthBar healthBar;
-
     public float Health
     {
         get => health;
@@ -110,9 +108,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public void Die()
     {
-        Debug.Log("Player died!");
-        GameManager.Instance.SwitchToScene("GameOverMenu");
-        // GameManager.Instance.UpdateGameState(GameStateType.PlayerDied);
+        GameManager.Instance.UpdateGameState(GameStateType.PlayerDied);
     }
 
     public void Attack()

@@ -75,7 +75,6 @@ public abstract class BaseEnemy : MonoBehaviour, IDamageable, ICombatant
         if (randomValue < unequipProbability)
         {
             IWeapon currentWeapon = weaponManager.CurrentWeapon;
-
             weaponManager.UnequipCurrentWeapon();
         }
 

@@ -26,10 +26,17 @@ public class BulletProjectile : MonoBehaviour, IProjectile
         lifetimeCoroutine = StartCoroutine(DestroyAfterTime(lifetime));
     }
 
-    public void OnHitTarget(GameObject hitObject)
+    public void OnHitDamageable(IDamageable hitDamageable, float? damageModifier)
     {
-        Debug.Log("Bullet hit " + hitObject.name);
-        hitObject.GetComponent<IDamageable>()?.TakeDamage(damageAmount);
+        if (hitDamageable == null)
+        {
+            Debug.Log("hitDamageable component is null in OnHitDamageable");
+            return;
+        }
+
+        float damageScalar = (damageModifier == null) ? 1f : damageModifier.Value;
+
+        hitDamageable.TakeDamage(damageAmount * damageScalar);
         DestroyProjectile();
     }
 

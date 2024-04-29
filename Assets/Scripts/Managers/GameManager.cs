@@ -151,6 +151,7 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
+        // Save ?
         Application.Quit();
     }
 
