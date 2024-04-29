@@ -29,7 +29,34 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
+        SetUpDifficulty();
         SetupEnemyStatuses();
+    }
+
+    private void SetUpDifficulty()
+    {
+        // Set enemy difficulty based on the player's choice
+        switch (GameManager.Instance.enemyDifficulty)
+        {
+            case "Easy":
+                ModifyEnemyStats(0.5f);
+                break;
+            case "Normal":
+                ModifyEnemyStats(1.0f);
+                break;
+            case "Hard":
+                ModifyEnemyStats(4.0f);
+                break;
+        }
+    }
+
+    private void ModifyEnemyStats(float difficultyMultiplier)
+    {
+        var enemies = FindObjectsOfType<BaseEnemy>();
+        foreach (var enemy in enemies)
+        {
+            enemy.Health *= difficultyMultiplier;
+        }
     }
 
     private void SetupEnemyStatuses()

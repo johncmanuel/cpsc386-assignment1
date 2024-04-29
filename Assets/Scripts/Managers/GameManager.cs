@@ -39,6 +39,8 @@ public class GameManager : MonoBehaviour
 
     private readonly Dictionary<GameStateType, IGameState> _gameStates = new Dictionary<GameStateType, IGameState>();
 
+    public string enemyDifficulty;
+
     private void Awake()
     {
         if (Instance != null)
