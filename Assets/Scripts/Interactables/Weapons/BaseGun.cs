@@ -34,6 +34,7 @@ public abstract class BaseGun : MonoBehaviour, IWeapon
         }
 
         PerformAttack();
+        StartCoroutine(StartSound());
         StartCoroutine(StartAttackCooldown());
     }
 
@@ -84,4 +85,12 @@ public abstract class BaseGun : MonoBehaviour, IWeapon
             CanBeEquipped = false;
         }
     }
+
+    private IEnumerator StartSound()
+    {
+        PlaySound();
+        yield return null;
+    }
+
+    protected abstract void PlaySound();
 }
