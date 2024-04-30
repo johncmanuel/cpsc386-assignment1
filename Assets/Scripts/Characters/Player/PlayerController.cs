@@ -61,5 +61,10 @@ public class PlayerController : MonoBehaviour
         {
             GameManager.Instance.PauseGame();
         }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            // drop weapon
+            player.UnequipCurrentWeapon();
+        }
     }
 }

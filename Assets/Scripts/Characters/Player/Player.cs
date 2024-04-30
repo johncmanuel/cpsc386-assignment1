@@ -143,6 +143,11 @@ public class Player : MonoBehaviour, IDamageable
         }
     }
 
+    public void UnequipCurrentWeapon()
+    {
+        weaponManager.UnequipCurrentWeapon();
+    }
+
     private void OnDrawGizmosSelected()
     {
         // visualize the interaction radius in editor
