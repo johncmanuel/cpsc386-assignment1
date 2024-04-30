@@ -175,6 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00bde71231a8d8547bf7e4e950193ee7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponConfig: {fileID: 11400000, guid: 845b4463cbbe31249a41dee9c8e4c6f0, type: 2}
+  weaponConfig: {fileID: 11400000, guid: 49b2e9f29ed80b34cba0b34759d5ed48, type: 2}
   projectileSpawn: {fileID: 759670208883641984}
   pelletsCount: 5
