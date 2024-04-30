@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour
             Debug.LogError("Couldn't find required DashMovement component");
         if (weaponRotator == null)
             Debug.LogError("Couldn't find required WeaponRotator component");
+        if (animator == null)
+            Debug.LogError("Couldn't find required Animator component");
 
         // Set them up
         IRotationInput mouseRotationInput = new MouseRotationInput(Camera.main);
@@ -40,7 +42,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         ProcessInputs();
-        Animate();
+        AnimateMovement();
     }
 
     private void ProcessInputs()
@@ -71,7 +73,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void Animate()
+    private void AnimateMovement()
     {
         animator.SetFloat(PlayerAnim.AnimMoveX, movementInput.x);
         animator.SetFloat(PlayerAnim.AnimMoveY, movementInput.y);

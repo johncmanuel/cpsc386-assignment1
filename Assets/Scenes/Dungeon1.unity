@@ -58176,6 +58176,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3848232810249669114, guid: 87ae6ae9f416cd848a8a948520386b0d, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -1136808108, guid: 7995bd1b93e823b48b013db12290d649, type: 3}
     - target: {fileID: 5459223957377506022, guid: 87ae6ae9f416cd848a8a948520386b0d, type: 3}
       propertyPath: m_Name
       value: Shotgun
@@ -58359,6 +58363,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1612815619102989803, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1677998376}
     - target: {fileID: 3096120375880578087, guid: f5ccc5a04f1138043a8b4a7609244ae8, type: 3}
       propertyPath: dashCooldownDuration
       value: 0.5
