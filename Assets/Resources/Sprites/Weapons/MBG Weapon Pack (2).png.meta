@@ -227,6 +227,48 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: shotgun_1
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 46
+        width: 20
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd8cdd32434f1bb42ba2ce8e5dc870cc
+      internalID: -1912132854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: rifle_1
+      rect:
+        serializedVersion: 2
+        x: 41
+        y: 60
+        width: 28
+        height: 9
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f14eae776a7f4084b81dd4c3ab382c05
+      internalID: -440746936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -243,6 +285,8 @@ TextureImporter:
       pistol_3: 831956529
       pistol_4: -417730601
       pistol_5: 521083877
+      rifle_1: -440746936
+      shotgun_1: -1912132854
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
