@@ -1,18 +1,12 @@
 using System.Collections;
 using UnityEngine;
 
-public class BulletProjectile : MonoBehaviour, IProjectile
+public class BasicProjectile : MonoBehaviour, IProjectile
 {
-    [SerializeField] private float damageAmount = 10f;
-    [SerializeField] private float lifetime = 10f;
-
+    [SerializeField] ProjectileConfig projectileConfig;
+    ProjectileType IProjectile.Type => projectileConfig.type;
     private ProjectileManager projectileManager;
-
-    private string projectileType = "Bullet";
-    public string Type => projectileType;
-
     private ICollisionBehavior collisionBehavior;
-
     private Coroutine lifetimeCoroutine;
 
     void OnEnable()
@@ -20,10 +14,15 @@ public class BulletProjectile : MonoBehaviour, IProjectile
         projectileManager = ProjectileManager.Instance;
         if (projectileManager == null) Debug.LogError("Couldn't find required ProjectileManager component");
 
-        collisionBehavior = new DamageOnCollision(damageAmount);
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>() ?? GetComponentInChildren<SpriteRenderer>();
+        if (spriteRenderer != null)
+            spriteRenderer.sprite = projectileConfig.sprite;
+        else Debug.LogError("Could not find SpriteRenderer on Object or Child Object");
+
+        collisionBehavior = new DamageOnCollision(projectileConfig.damage);
 
         // Reset and start the lifetime countdown every time the bullet is enabled
-        lifetimeCoroutine = StartCoroutine(DestroyAfterTime(lifetime));
+        lifetimeCoroutine = StartCoroutine(DestroyAfterTime(projectileConfig.lifetime));
     }
 
     public void OnHitDamageable(IDamageable hitDamageable, float? damageModifier)
@@ -36,7 +35,7 @@ public class BulletProjectile : MonoBehaviour, IProjectile
 
         float damageScalar = (damageModifier == null) ? 1f : damageModifier.Value;
 
-        hitDamageable.TakeDamage(damageAmount * damageScalar);
+        hitDamageable.TakeDamage(projectileConfig.damage * damageScalar);
         DestroyProjectile();
     }
 

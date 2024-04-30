@@ -5,4 +5,5 @@ public static class AudioNames
     public const string MainMenuMusicName = "MainMenu";
     public const string PlayingLevelMusicName = "Level";
     public const string PistolSoundName = "Pistol";
+    public const string ShotgunSoundName = "Shotgun";
 }

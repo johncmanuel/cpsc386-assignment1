@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public interface IPoolsObjectTypes
 {
-    GameObject GetPooledObjectByType(string type);
+    GameObject GetPooledObjectByType(ProjectileType type);
     void ReleasePooledObject(GameObject pooledObject);
 }
 
@@ -13,7 +13,7 @@ public class ProjectilePool : MonoBehaviour, IPoolsObjectTypes
     [SerializeField]
     private List<GameObject> projectilePrefabs;
 
-    private readonly Dictionary<string, ObjectPool<GameObject>> projectilePools = new();
+    private readonly Dictionary<ProjectileType, ObjectPool<GameObject>> projectilePools = new();
     
     private const int InitialPoolCapacity = 40;
     private const int MaxPoolSize = 100;
@@ -60,7 +60,7 @@ public class ProjectilePool : MonoBehaviour, IPoolsObjectTypes
     private static void ActivateGameObject(GameObject obj) => obj.SetActive(true);
     private static void DeactivateGameObject(GameObject obj) => obj.SetActive(false);
 
-    public GameObject GetPooledObjectByType(string type)
+    public GameObject GetPooledObjectByType(ProjectileType type)
     {
         if (projectilePools.TryGetValue(type, out var pool))
         {

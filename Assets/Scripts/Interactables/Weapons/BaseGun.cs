@@ -5,13 +5,11 @@ public abstract class BaseGun : MonoBehaviour, IWeapon
 {
     public bool CanBeEquipped { get; set; } = true;
 
-    private ProjectileManager projectileManager;
-    private string projectileType = "Bullet";
-    private bool canAttack = true;
+    protected ProjectileManager projectileManager;
+    protected bool canAttack = true;
 
-    [SerializeField] private float attackCooldown = 0.1f;
-    [SerializeField] private float bulletSpeed = 1f;
-    [SerializeField] private Transform bulletSpawn;
+    [SerializeField] protected WeaponConfig weaponConfig;
+    [SerializeField] protected Transform projectileSpawn;
 
     private bool attackQueued = false;
 
@@ -20,7 +18,7 @@ public abstract class BaseGun : MonoBehaviour, IWeapon
         projectileManager = ProjectileManager.Instance;
         if (projectileManager == null) Debug.LogError("Couldn't find required ProjectileManager component");
 
-        if (!bulletSpawn) Debug.LogError("The Bullet Spawn transform for the weapon needs to be set in the inspector.");
+        if (!projectileSpawn) Debug.LogError("The Bullet Spawn transform for the weapon needs to be set in the inspector.");
     }
 
     public void Attack()
@@ -38,17 +36,17 @@ public abstract class BaseGun : MonoBehaviour, IWeapon
         StartCoroutine(StartAttackCooldown());
     }
 
-    private void PerformAttack()
+    protected virtual void PerformAttack()
     {
-        GameObject bullet = projectileManager.SpawnProjectile(projectileType);
+        GameObject bullet = projectileManager.SpawnProjectile(weaponConfig.projectileConfig.type);
 
-        Vector2 spawnPosition = bulletSpawn.position;
-        Quaternion spawnRotation = bulletSpawn.rotation;
+        Vector2 spawnPosition = projectileSpawn.position;
+        Quaternion spawnRotation = projectileSpawn.rotation;
 
         bullet.transform.position = spawnPosition;
         bullet.transform.rotation = spawnRotation;
 
-        Vector2 attackVelocity = bulletSpawn.right * bulletSpeed;
+        Vector2 attackVelocity = projectileSpawn.right * weaponConfig.projectileConfig.speed;
 
         bullet.GetComponent<Rigidbody2D>().velocity = attackVelocity;
     }
@@ -56,13 +54,13 @@ public abstract class BaseGun : MonoBehaviour, IWeapon
     private IEnumerator StartAttackCooldown()
     {
         canAttack = false;
-        yield return new WaitForSeconds(attackCooldown);
+        yield return new WaitForSeconds(weaponConfig.attackCooldown);
         canAttack = true;
 
         if (attackQueued)
         {
             attackQueued = false;
-            PerformAttack();
+            Attack();
         }
     }
 

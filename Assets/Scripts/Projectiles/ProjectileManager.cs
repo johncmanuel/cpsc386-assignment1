@@ -27,7 +27,7 @@ public class ProjectileManager : MonoBehaviour
             Debug.LogError("Could not find required component ProjectilePool");
     }
 
-    public GameObject SpawnProjectile(string type)
+    public GameObject SpawnProjectile(ProjectileType type)
     {
         var proj = projectilePool.GetPooledObjectByType(type);
         if (proj == null)
