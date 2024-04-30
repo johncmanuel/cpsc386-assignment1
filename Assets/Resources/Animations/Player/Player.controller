@@ -14,19 +14,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: AnimMoveY
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: AnimMoveMagnitude
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -109,7 +109,7 @@ AnimatorStateMachine:
     m_Position: {x: 490, y: 100, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4606704335311875332}
-    m_Position: {x: 558.79895, y: 189.354, z: 0}
+    m_Position: {x: 560, y: 190, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
@@ -242,7 +242,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 4bf1a0151cf7adc46861d35fe2693d01, type: 2}
-    m_Threshold: 0.14285716
+    m_Threshold: 0.107142866
     m_Position: {x: -1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -250,7 +250,7 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 12d7275a918f85647b3122383dc4f27d, type: 2}
-    m_Threshold: 0.28571433
+    m_Threshold: 0.21428573
     m_Position: {x: 1, y: 0}
     m_TimeScale: 1
     m_CycleOffset: 0
@@ -258,16 +258,16 @@ BlendTree:
     m_Mirror: 0
   - serializedVersion: 2
     m_Motion: {fileID: 7400000, guid: 74ffed2fbca5e524da17709ffa0b27f5, type: 2}
-    m_Threshold: 0.42857146
+    m_Threshold: 0.3214286
     m_Position: {x: 0, y: 1}
     m_TimeScale: 1
     m_CycleOffset: 0
     m_DirectBlendParameter: AnimMoveX
     m_Mirror: 0
   m_BlendParameter: AnimMoveX
-  m_BlendParameterY: AnimMoveX
+  m_BlendParameterY: AnimMoveY
   m_MinThreshold: 0
-  m_MaxThreshold: 0.42857146
+  m_MaxThreshold: 0.3214286
   m_UseAutomaticThresholds: 1
   m_NormalizedBlendValues: 0
   m_BlendType: 1
