@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
     private DashMovement dashMovement;
     private WeaponRotator weaponRotator;
 
+    [SerializeField] private Animator animator;
+
     private void Start()
     {
         // Get Components
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         ProcessInputs();
+        Animate();
     }
 
     private void ProcessInputs()
@@ -66,5 +69,12 @@ public class PlayerController : MonoBehaviour
             // drop weapon
             player.UnequipCurrentWeapon();
         }
+    }
+
+    private void Animate()
+    {
+        animator.SetFloat(PlayerAnim.AnimMoveX, movementInput.x);
+        animator.SetFloat(PlayerAnim.AnimMoveY, movementInput.y);
+        animator.SetFloat(PlayerAnim.AnimMoveMagnitude, movementInput.magnitude);
     }
 }
