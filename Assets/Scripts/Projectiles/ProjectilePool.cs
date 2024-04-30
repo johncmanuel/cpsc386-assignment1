@@ -62,6 +62,12 @@ public class ProjectilePool : MonoBehaviour, IPoolsObjectTypes
 
     public GameObject GetPooledObjectByType(ProjectileType type)
     {
+        if (projectilePools == null)
+        {
+            Debug.LogError("projectilePools is null");
+            return null;
+        }
+
         if (projectilePools.TryGetValue(type, out var pool))
         {
             return pool.Get();
